@@ -9,7 +9,7 @@
 
 let username = "luca";
 in {
-  boot.loader.grub.enable = "false";
+  boot.loader.grub.enable = false;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
   environment.systemPackages = with pkgs; [
@@ -19,6 +19,7 @@ in {
     wget
     curl
     gcc
+    direnv
   ];
 
   programs.bash.shellAliases = {
