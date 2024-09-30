@@ -20,11 +20,18 @@ in {
     curl
     gcc
     direnv
+    taskwarrior3
+    vit
+    gh
+    starship
   ];
+
+  environment.localBinInPath = true;
 
   programs.bash.shellAliases = {
     vcn = "sudo nvim /etc/nixos/configuration.nix";
     nrs = "sudo nixos-rebuild switch";
+    "in" = "task add +in";
   };
 
   users.users.${username} = {
