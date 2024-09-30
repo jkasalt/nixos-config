@@ -20,10 +20,7 @@ in {
     curl
     gcc
     direnv
-    taskwarrior3
-    vit
     gh
-    starship
   ];
 
   environment.localBinInPath = true;
