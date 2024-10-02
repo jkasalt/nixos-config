@@ -9,6 +9,8 @@
   home.username = username;
   home.homeDirectory = "/home/${username}";
 
+  imports = [./nixvim.nix];
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -24,13 +26,13 @@
     taskwarrior3
     vit
     (writeShellScriptBin "task-git-sync" ''
-        #!/bin/sh
-        
-        cd ~/.task/json || exit 1
-        task export >all.json
-        git add all.json
-        git commit -m "$(date)"
-        git push
+      #!/bin/sh
+
+      cd ~/.task/json || exit 1
+      task export >all.json
+      git add all.json
+      git commit -m "$(date)"
+      git push
     '')
     starship
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -79,7 +81,6 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-  programs.nixvim = import ./nixvim.nix;
   programs.zsh = import ./zsh.nix;
   programs.git = import ./git.nix;
   # Let Home Manager install and manage itself.

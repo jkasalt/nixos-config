@@ -1,6 +1,10 @@
 {
+  aliases = {
+    s = "status";
+  };
   enable = true;
   delta.enable = true;
+  delta.options.side-by-side = true;
   extraConfig = {
     branch . sort = "-commiterdate";
     column.ui = "auto";
