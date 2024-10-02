@@ -1,10 +1,13 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  username,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "luca";
-  home.homeDirectory = "/home/luca";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -17,10 +20,11 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
+    taskwarrior3
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -72,6 +76,8 @@
   };
 
   programs.nixvim = import ./nixvim.nix;
+  programs.zsh = import ./zsh.nix;
+  programs.git = import ./git.nix;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

@@ -11,34 +11,45 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-        url = "github:nix-community/nixvim";
-        # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
-        inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim";
+      # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... } @ inputs: 
-  let
+  outputs = {
+    nixpkgs,
+    home-manager,
+    ...
+  } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-    	system = "x86_64-linux";
-	modules = [
-		inputs.nixos-wsl.nixosModules.default {system.stateVersion = "23.11";}
-		./configuration.nix
-	];
+      system = "x86_64-linux";
+      modules = [
+        inputs.nixos-wsl.nixosModules.default
+        {system.stateVersion = "23.11";}
+        ./configuration.nix
+      ];
     };
 
-    homeConfigurations."luca" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations.desktop = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      
+
       # Specify your home configuration modules here, for example,
       # the path to your home.nix.
-      modules = [ ./home.nix inputs.nixvim.homeManagerModules.nixvim ];
-      
+      modules = [./home.nix inputs.nixvim.homeManagerModules.nixvim];
+
       # Optionally use extraSpecialArgs
       # to pass through arguments to home.nix
+      extraSpecialArgs = {username = "luca";};
+    };
+
+    homeConfigurations.laptop = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [./home.nix inputs.nixvim.homeManagerModules.nixvim];
+      extraSpecialArgs = {username = "brua";};
     };
   };
 }
