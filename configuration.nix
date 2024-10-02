@@ -1,17 +1,24 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 # NixOS-WSL specific options are documented on the NixOS-WSL repository:
 # https://github.com/nix-community/NixOS-WSL
-
-{ config, lib, pkgs, ... }:
-
-let username = "luca";
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  username = "luca";
+  shellAliases = {
+    vcn = "sudo nvim /etc/nixos/configuration.nix";
+    nrs = "sudo nixos-rebuild switch";
+    "in" = "task add +in";
+  };
 in {
   boot.loader.grub.enable = false;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+
   environment.systemPackages = with pkgs; [
     neovim
     git
@@ -21,20 +28,24 @@ in {
     gcc
     direnv
     gh
+    fish
   ];
 
   environment.localBinInPath = true;
 
-  programs.bash.shellAliases = {
-    vcn = "sudo nvim /etc/nixos/configuration.nix";
-    nrs = "sudo nixos-rebuild switch";
-    "in" = "task add +in";
+  programs.bash.shellAliases = shellAliases;
+
+  programs.fish = {
+    enable = true;
+    shellAliases = shellAliases;
+    useBabelfish = true;
   };
 
   users.users.${username} = {
     isNormalUser = true;
     description = "Luca Bracone";
     extraGroups = ["networkmanager" "wheel" "docker"];
+    shell = pkgs.fish;
   };
 
   wsl = {
@@ -50,7 +61,7 @@ in {
     # Enable integration with Docker Desktop (needs to be installed)
     docker-desktop.enable = false;
   };
-  
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave
