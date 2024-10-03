@@ -9,7 +9,15 @@
 
     opts = {number = true;};
 
-    colorschemes.catppuccin.enable = true;
+    colorschemes.catppuccin = {
+      enable = true;
+      settings = {
+        flavour = "latte";
+        integrations = {
+          nvim_surround = true;
+        };
+      };
+    };
 
     plugins = {
       bufferline.enable = true;
@@ -23,6 +31,20 @@
         settings = {
           highlight.enable = true;
           indent.enable = true;
+        };
+      };
+
+      gitsigns = {
+        enable = true;
+        settings = {
+          current_line_blame = true;
+          current_line_blame_opts = {
+            ignore_whitespace = true;
+          };
+          diff_opts = {
+            algorithm = "histogram";
+            indent_heuristic = true;
+          };
         };
       };
 
