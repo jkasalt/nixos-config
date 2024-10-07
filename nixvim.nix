@@ -109,27 +109,33 @@
           };
         };
         servers = {
-          nil-ls.enable = true;
-          rust-analyzer = {
-            enable = true;
-            installCargo = true;
-            installRustc = true;
-          };
+          nil-ls.enable = false;
+          nixd.enable = true;
         };
       };
 
-      conform-nvim = {
+      rustaceanvim = {
         enable = true;
-        settings = {
-          formatters_by_ft = {nix = ["alejandra"];};
-          format_on_save = {
-            timeout_ms = 500;
-            lsp_fallback = "never";
+        settings.tools.enable_clippy = true;
+      };
+
+      lsp-format.enable = true;
+
+      none-ls = {
+        enable = true;
+        sources = {
+          diagnostics = {
+            actionlint.enable = true;
+            statix.enable = true;
+            yamllint.enable = true;
+          };
+          formatting = {
+            alejandra.enable = true;
           };
         };
       };
     };
   };
 
-  home.packages = with pkgs; [alejandra];
+  home.packages = with pkgs; [actionlint alejandra statix yamllint];
 }
