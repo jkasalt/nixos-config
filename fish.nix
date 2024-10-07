@@ -1,14 +1,19 @@
-{pkgs, ...}: {
-  programs.fish = {
-    enable = true;
-  };
-  programs.zoxide = {
-    enable = true;
-    enableFishIntegration = true;
-  };
-
-  programs.starship = {
-    enable = true;
-    enableFishIntegration = true;
+{...}: {
+  programs = {
+    fish = {
+      enable = true;
+    };
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    starship = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    fzf = {
+      enable = true;
+      enableFishIntegration = true;
+    };
   };
 }
