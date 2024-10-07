@@ -26,7 +26,7 @@
     pkgs = nixpkgs.legacyPackages.${system};
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+      inherit system;
       modules = [
         inputs.nixos-wsl.nixosModules.default
         {system.stateVersion = "23.11";}
