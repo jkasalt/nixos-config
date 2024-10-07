@@ -39,6 +39,17 @@
         };
       };
 
+      telescope = {
+        enable = true;
+        keymaps = {
+          "<leader><leader>" = {
+            action = "git_files";
+            options.desc = "Telescope git files";
+          };
+          "<leader>fg" = "live_grep";
+        };
+      };
+
       gitsigns = {
         enable = true;
         settings = {
