@@ -5,7 +5,7 @@
     viAlias = true;
     vimAlias = true;
 
-    globals.mapLeader = " ";
+    globals.mapleader = " ";
 
     opts = {number = true;};
 
