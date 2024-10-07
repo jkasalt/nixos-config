@@ -6,35 +6,28 @@
 }: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = username;
-  home.homeDirectory = "/home/${username}";
+  home = {
+    inherit username;
+    homeDirectory = "/home/${username}";
+    # This value determines the Home Manager release that your configuration is
+    # compatible with. This helps avoid breakage when a new Home Manager release
+    # introduces backwards incompatible changes.
+    #
+    # You should not change this value, even if you update Home Manager. If you do
+    # want to update the value, then make sure to first check the Home Manager
+    # release notes.
+    stateVersion = "24.05"; # Please read the comment before changing.
+  };
 
   imports = [./nixvim.nix ./fish.nix];
-
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
     taskwarrior3
     vit
-    (writeShellScriptBin "task-git-sync" ''
-      #!/bin/sh
-
-      cd ~/.task/json || exit 1
-      task export >all.json
-      git add all.json
-      git commit -m "$(date)"
-      git push
-    '')
     starship
+    lazygit
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -47,6 +40,15 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    (writeShellScriptBin "task-git-sync" ''
+      #!/bin/sh
+
+      cd ~/.task/json || exit 1
+      task export >all.json
+      git add all.json
+      git commit -m "$(date)"
+      git push
+    '')
   ];
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -81,8 +83,10 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-  programs.zsh = import ./zsh.nix;
-  programs.git = import ./git.nix;
+  programs = {
+    zsh = import ./zsh.nix;
+    git = import ./git.nix;
+  };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
