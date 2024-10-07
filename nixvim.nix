@@ -10,13 +10,18 @@
     opts = {number = true;};
 
     colorschemes.catppuccin = {
-      enable = true;
+      enable = false;
       settings = {
         flavour = "mocha";
         integrations = {
           nvim_surround = true;
         };
       };
+    };
+
+    colorschemes.nightfox = {
+      enable = true;
+      flavor = "dayfox";
     };
 
     plugins = {
