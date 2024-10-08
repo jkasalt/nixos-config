@@ -19,14 +19,13 @@
     stateVersion = "24.05"; # Please read the comment before changing.
   };
 
-  imports = [./nixvim.nix ./fish.nix];
+  imports = [./nixvim.nix ./shell.nix ./openshift.nix];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
     taskwarrior3
     vit
-    starship
     lazygit
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
