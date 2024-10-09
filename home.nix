@@ -19,7 +19,7 @@
     stateVersion = "24.05"; # Please read the comment before changing.
   };
 
-  imports = [./nixvim.nix ./shell.nix ./openshift.nix];
+  imports = [./nixvim.nix ./zsh.nix ./openshift.nix];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -83,7 +83,6 @@
     EDITOR = "nvim";
   };
   programs = {
-    zsh = import ./zsh.nix;
     git = import ./git.nix;
   };
   # Let Home Manager install and manage itself.
