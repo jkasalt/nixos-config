@@ -77,6 +77,8 @@
         };
       };
 
+      intellitab.enable = true;
+
       lsp = {
         enable = true;
         inlayHints = true;
@@ -103,6 +105,7 @@
         sources = {
           diagnostics = {
             actionlint.enable = true;
+            deadnix.enable = true;
             statix.enable = true;
             yamllint.enable = true;
           };
@@ -159,5 +162,5 @@
     };
   };
 
-  home.packages = with pkgs; [actionlint alejandra lombok statix yamllint];
+  home.packages = with pkgs; [actionlint alejandra deadnix lombok statix yamllint];
 }
