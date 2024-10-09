@@ -96,6 +96,8 @@
         };
       };
 
+      fidget.enable = true;
+
       lsp = {
         enable = true;
         inlayHints = true;
@@ -124,7 +126,16 @@
         };
       };
 
-      rustaceanvim.enable = true;
+      rustaceanvim = {
+        enable = true;
+        settings.server.default_settings = {
+          inlayHints.lifetimeElisionHints.enable = "always";
+          rust-analyzer = {
+            cargo = {allFeatures = true;};
+            check = {command = "clippy";};
+          };
+        };
+      };
 
       lsp-format.enable = true;
 
