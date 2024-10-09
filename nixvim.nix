@@ -26,43 +26,6 @@
 
     plugins = {
       bufferline.enable = true;
-      web-devicons.enable = true;
-      guess-indent.enable = true;
-      nvim-autopairs.enable = true;
-      nvim-surround.enable = true;
-
-      treesitter = {
-        enable = true;
-        settings = {
-          highlight.enable = true;
-          indent.enable = true;
-        };
-      };
-
-      telescope = {
-        enable = true;
-        keymaps = {
-          "<leader><leader>" = {
-            action = "git_files";
-            options.desc = "Telescope git files";
-          };
-          "<leader>fg" = "live_grep";
-        };
-      };
-
-      gitsigns = {
-        enable = true;
-        settings = {
-          current_line_blame = true;
-          current_line_blame_opts = {
-            ignore_whitespace = true;
-          };
-          diff_opts = {
-            algorithm = "histogram";
-            indent_heuristic = true;
-          };
-        };
-      };
 
       cmp = {
         enable = true;
@@ -98,6 +61,22 @@
 
       fidget.enable = true;
 
+      guess-indent.enable = true;
+
+      gitsigns = {
+        enable = true;
+        settings = {
+          current_line_blame = true;
+          current_line_blame_opts = {
+            ignore_whitespace = true;
+          };
+          diff_opts = {
+            algorithm = "histogram";
+            indent_heuristic = true;
+          };
+        };
+      };
+
       lsp = {
         enable = true;
         inlayHints = true;
@@ -117,26 +96,6 @@
         };
       };
 
-      nvim-jdtls = {
-        enable = true;
-        cmd = ["jdtls"];
-        settings.java = {
-          jdt.ls.lombokSupport.enabled = true;
-          jdt.ls.lombok_support.enabled = true;
-        };
-      };
-
-      rustaceanvim = {
-        enable = true;
-        settings.server.default_settings = {
-          inlayHints.lifetimeElisionHints.enable = "always";
-          rust-analyzer = {
-            cargo = {allFeatures = true;};
-            check = {command = "clippy";};
-          };
-        };
-      };
-
       lsp-format.enable = true;
 
       none-ls = {
@@ -152,6 +111,51 @@
           };
         };
       };
+
+      nvim-autopairs.enable = true;
+
+      nvim-jdtls = {
+        enable = true;
+        cmd = ["jdtls"];
+        settings.java = {
+          jdt.ls.lombokSupport.enabled = true;
+          jdt.ls.lombok_support.enabled = true;
+        };
+      };
+
+      nvim-surround.enable = true;
+
+      rustaceanvim = {
+        enable = true;
+        settings.server.default_settings = {
+          inlayHints.lifetimeElisionHints.enable = "always";
+          rust-analyzer = {
+            cargo = {allFeatures = true;};
+            check = {command = "clippy";};
+          };
+        };
+      };
+
+      treesitter = {
+        enable = true;
+        settings = {
+          highlight.enable = true;
+          indent.enable = true;
+        };
+      };
+
+      telescope = {
+        enable = true;
+        keymaps = {
+          "<leader><leader>" = {
+            action = "git_files";
+            options.desc = "Telescope git files";
+          };
+          "<leader>fg" = "live_grep";
+        };
+      };
+
+      web-devicons.enable = true;
     };
   };
 
