@@ -9,7 +9,7 @@
   pkgs,
   ...
 }: let
-  username = "luca";
+  username = "nixos";
   shellAliases = {
     vcn = "sudo nvim /etc/nixos/configuration.nix";
     nrs = "sudo nixos-rebuild switch";
@@ -28,24 +28,22 @@ in {
     gcc
     direnv
     gh
-    fish
+    zsh
   ];
 
   environment.localBinInPath = true;
 
   programs.bash.shellAliases = shellAliases;
 
-  programs.fish = {
+  programs.zsh = {
     enable = true;
-    shellAliases = shellAliases;
-    useBabelfish = true;
+    inherit shellAliases;
   };
 
   users.users.${username} = {
     isNormalUser = true;
-    description = "Luca Bracone";
     extraGroups = ["networkmanager" "wheel" "docker"];
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
   };
 
   wsl = {
