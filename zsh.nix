@@ -19,6 +19,12 @@ _: {
     initExtra = ''
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
     '';
+
+    shellAliases = {
+      g = "git";
+      us = "systemctl --user"; # mnemonic for user systemctl
+      rs = "sudo systemctl"; # mnemonic for root systemctl
+    };
   };
 
   programs = {
