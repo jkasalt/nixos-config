@@ -31,5 +31,10 @@ _: {
       enable = true;
       enableZshIntegration = true;
     };
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableZshIntegration = true;
+    };
   };
 }

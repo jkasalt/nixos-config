@@ -11,13 +11,13 @@
         "$git_commit"
         "$git_state"
         "$git_status"
-        "$nix_shell"
         "$aws"
         "$azure"
         "$gcloud"
         "$line_break"
         "$battery"
         "$python"
+        "$nix_shell"
         "$character"
       ];
       right_format = lib.concatStrings ["$cmd_duration"];
@@ -67,6 +67,14 @@
       cmd_duration = {
         format = "[$duration]($style) ";
         style = "yellow";
+      };
+
+      nix_shell = {
+        format = "[$state$symbol]($style)";
+        impure_msg = "!";
+        pure_msg = "";
+        symbol = " ";
+        heuristic = true;
       };
 
       python = {

@@ -21,7 +21,7 @@
 
     colorschemes.nightfox = {
       enable = true;
-      flavor = "dayfox";
+      flavor = "nightfox";
     };
 
     plugins = {
@@ -124,10 +124,7 @@
         };
       };
 
-      rustaceanvim = {
-        enable = true;
-        settings.tools.enable_clippy = true;
-      };
+      rustaceanvim.enable = true;
 
       lsp-format.enable = true;
 
