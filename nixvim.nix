@@ -77,6 +77,8 @@
         };
       };
 
+      hex.enable = true;
+
       intellitab.enable = true;
 
       lsp = {
