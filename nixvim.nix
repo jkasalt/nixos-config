@@ -101,6 +101,17 @@
       };
 
       lsp-format.enable = true;
+      lsp-lines.enable = true;
+      lsp-lines.luaConfig.post = ''
+        vim.diagnostic.config({ virtual_text = true })
+        vim.diagnostic.config({ virtual_lines = false }) -- by default this plugin is off
+        vim.keymap.set( -- enable it when needed with this keymap
+          "",
+          "gh",
+          require("lsp_lines").toggle,
+          { desc = "Toggle lsp_lines" }
+        )
+      '';
 
       none-ls = {
         enable = true;
