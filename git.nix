@@ -40,10 +40,6 @@
     ca = "commit --amend";
     cm = "commit --message";
 
-    co = "checkout";
-    cb = "checkout -b";
-    pc = "checkout --patch";
-
     cl = "clone";
 
     d = "diff";
@@ -69,8 +65,14 @@
     lp = "${log} --patch";
     la = "${log} --all";
 
-    rs = "reset";
+    rs = "restore";
+    rsp = ''
+      !f() { git restore --source="$1" --patch "$2"; }; f;
+    '';
     rsh = "reset --hard";
+
+    sw = "switch";
+    sc = "switch -c";
 
     s = "status --short --branch";
     ss = "status";
