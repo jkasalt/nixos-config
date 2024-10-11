@@ -130,6 +130,8 @@
 
       nvim-surround.enable = true;
 
+      render-markdown.enable = true;
+
       rustaceanvim = {
         enable = true;
         settings.server.default_settings = {
