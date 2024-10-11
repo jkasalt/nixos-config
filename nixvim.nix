@@ -98,7 +98,6 @@
         servers = {
           nil-ls.enable = false;
           nixd.enable = true;
-          jdt-language-server.enable = true;
         };
       };
 
@@ -123,7 +122,7 @@
 
       nvim-jdtls = {
         enable = true;
-        cmd = ["jdtls"];
+        cmd = ["${pkgs.jdt-language-server}/bin/jdtls" "-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
         settings.java = {
           jdt.ls.lombokSupport.enabled = true;
           jdt.ls.lombok_support.enabled = true;
@@ -168,5 +167,5 @@
     };
   };
 
-  home.packages = with pkgs; [actionlint alejandra deadnix lombok statix yamllint];
+  home.packages = with pkgs; [actionlint alejandra deadnix jdt-language-server lombok statix yamllint];
 }
