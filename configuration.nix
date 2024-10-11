@@ -22,6 +22,7 @@ in {
   environment.systemPackages = with pkgs; [
     neovim
     git
+    gzip
     bash
     wget
     curl
