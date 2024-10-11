@@ -7,15 +7,17 @@
 
     globals.mapleader = " ";
 
-    opts = {number = true;};
+    opts = {
+      number = true;
+      scrolloff = 4;
+      signcolumn = "yes:1";
+    };
 
     colorschemes.catppuccin = {
       enable = false;
       settings = {
         flavour = "mocha";
-        integrations = {
-          nvim_surround = true;
-        };
+        integrations = {nvim_surround = true;};
       };
     };
 
