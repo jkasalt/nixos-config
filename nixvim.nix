@@ -9,6 +9,7 @@
 
     opts = {
       number = true;
+      relativenumber = true;
       scrolloff = 4;
       signcolumn = "yes:1";
     };
