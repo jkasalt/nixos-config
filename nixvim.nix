@@ -9,6 +9,7 @@
 
     opts = {
       number = true;
+      relativenumber = true;
       scrolloff = 4;
       signcolumn = "yes:1";
     };
@@ -89,9 +90,11 @@
         keymaps = {
           lspBuf = {
             K = "hover";
+            ga = "code_action";
             gD = "references";
             gd = "definition";
             gi = "implementation";
+            gr = "rename";
             gt = "type_definition";
           };
         };
