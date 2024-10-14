@@ -34,11 +34,18 @@ in {
 
   environment.localBinInPath = true;
 
-  programs.bash.shellAliases = shellAliases;
+  programs = {
+    bash.shellAliases = shellAliases;
 
-  programs.zsh = {
-    enable = true;
-    inherit shellAliases;
+    zsh = {
+      enable = true;
+      inherit shellAliases;
+    };
+
+    nix-ld = {
+      enable = true;
+      package = pkgs.nix-ld-rs;
+    };
   };
 
   users.users.${username} = {
@@ -48,12 +55,8 @@ in {
   };
 
   wsl = {
+    wslConf.interop.appendWindowsPath = true;
     enable = true;
-    wslConf = {
-      automount.root = "/mnt";
-      interop.appendWindowsPath = false;
-      network.generateHosts = false;
-    };
     defaultUser = username;
     startMenuLaunchers = true;
 
