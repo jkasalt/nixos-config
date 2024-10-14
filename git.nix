@@ -4,7 +4,7 @@
   delta.options.side-by-side = true;
 
   extraConfig = {
-    branch.sort = "-commiterdate";
+    branch.sort = "-committerdate";
     column.ui = "auto";
     diff = {
       colorMoved = "default";

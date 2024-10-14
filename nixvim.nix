@@ -139,7 +139,6 @@
         cmd = ["${pkgs.jdt-language-server}/bin/jdtls" "-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
         settings.java = {
           jdt.ls.lombokSupport.enabled = true;
-          jdt.ls.lombok_support.enabled = true;
         };
       };
 
@@ -176,6 +175,8 @@
           "<leader>fg" = "live_grep";
         };
       };
+
+      undotree.enable = true;
 
       web-devicons.enable = true;
     };
