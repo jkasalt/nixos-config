@@ -186,10 +186,11 @@
 
       telescope = {
         enable = true;
+        extensions.fzf-native.enable = true;
         keymaps = {
           "<leader><leader>" = {
-            action = "git_files";
-            options.desc = "Telescope git files";
+            action = "fd";
+            options.desc = "Telescope find files";
           };
           "<leader>fg" = "live_grep";
         };
