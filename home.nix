@@ -28,6 +28,7 @@
     vit
     lazygit
     fd
+    gh
     jaq
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -86,6 +87,10 @@
   };
   programs = {
     git = import ./git.nix;
+    opam = {
+      enable = true;
+      enableZshIntegration = true;
+    };
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

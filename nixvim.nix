@@ -99,8 +99,12 @@
           };
         };
         servers = {
-          nil-ls.enable = false;
           nixd.enable = true;
+          ocamllsp.enable = true;
+          jdt-language-server = {
+            enable = true;
+            extraOptions.init_options.jvm_args = ["-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
+          };
         };
       };
 
@@ -117,19 +121,12 @@
           };
           formatting = {
             alejandra.enable = true;
+            ocamlformat.enable = true;
           };
         };
       };
 
       nvim-autopairs.enable = true;
-
-      nvim-jdtls = {
-        enable = true;
-        cmd = ["${pkgs.jdt-language-server}/bin/jdtls" "-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
-        settings.java = {
-          jdt.ls.lombokSupport.enabled = true;
-        };
-      };
 
       nvim-surround.enable = true;
 
@@ -202,5 +199,5 @@
     };
   };
 
-  home.packages = with pkgs; [actionlint alejandra deadnix jdt-language-server lombok statix yamllint];
+  home.packages = with pkgs; [actionlint alejandra deadnix lombok statix yamllint];
 }
