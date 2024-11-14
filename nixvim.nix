@@ -12,20 +12,10 @@
       relativenumber = true;
       scrolloff = 4;
       signcolumn = "yes:1";
+      wrap = false;
     };
 
-    colorschemes.catppuccin = {
-      enable = false;
-      settings = {
-        flavour = "mocha";
-        integrations = {nvim_surround = true;};
-      };
-    };
-
-    colorschemes.nightfox = {
-      enable = true;
-      flavor = "nightfox";
-    };
+    colorschemes.nightfox.enable = true;
 
     plugins = {
       bufferline.enable = true;
