@@ -55,6 +55,13 @@
       git commit -m "$(date)"
       git push
     '')
+    (writeShellScriptBin "notes" ''
+      #!/usr/bin/env bash
+
+      TODAY=$(date -I)
+      FILENAME="notes-$TODAY.md"
+      nvim ~/notes/$FILENAME
+    '')
   ];
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
