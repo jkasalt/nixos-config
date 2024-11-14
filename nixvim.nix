@@ -91,12 +91,17 @@
           };
         };
         servers = {
-          nixd.enable = true;
-          ocamllsp.enable = true;
-          jdt-language-server = {
+          basedpyright.enable = true;
+          ruff_lsp.enable = true;
+          jdtls = {
             enable = true;
             extraOptions.init_options.jvm_args = ["-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
           };
+          docker_compose_language_service = {
+            enable = true;
+            filetypes = ["yaml"];
+          };
+          nixd.enable = true;
         };
       };
 
@@ -114,9 +119,12 @@
           formatting = {
             alejandra.enable = true;
             ocamlformat.enable = true;
+            yamlfmt.enable = true;
           };
         };
       };
+
+      nui.enable = true;
 
       nvim-autopairs.enable = true;
 
