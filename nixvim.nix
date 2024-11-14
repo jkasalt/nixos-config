@@ -101,7 +101,7 @@
             enable = true;
             filetypes = ["yaml"];
           };
-          nixd.enable = true;
+          nil_ls.enable = true;
         };
       };
 
