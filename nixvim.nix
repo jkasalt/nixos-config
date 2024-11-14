@@ -197,6 +197,23 @@
 
       web-devicons.enable = true;
     };
+
+    extraPlugins = [
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "leetcode";
+        src = pkgs.fetchFromGitHub {
+          owner = "kawre";
+          repo = "leetcode.nvim";
+          rev = "6a2e54ff13027fb3ce46b61a0e721eccc020ec80";
+          hash = "sha256-jLuqsUnEgPFCp97G5sDqP4+DfIWc/uy0a6oTkMIXXtE=";
+        };
+      })
+    ];
+    extraConfigLua = ''
+      require("leetcode").setup({
+        lang = "python3",
+      })
+    '';
   };
 
   home.packages = with pkgs; [actionlint alejandra deadnix lombok statix yamllint];
