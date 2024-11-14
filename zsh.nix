@@ -1,4 +1,8 @@
-_: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [./starship.nix];
 
   programs.zsh = {
@@ -16,9 +20,14 @@ _: {
       ignoreAllDups = true;
       ignoreSpace = true;
     };
-    initExtra = ''
-      zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-    '';
+    initExtra = lib.concatStrings [
+      ''
+        zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+      ''
+      ''
+        source <(${pkgs.leetcode-cli}/bin/leetcode c zsh)
+      ''
+    ];
 
     shellAliases = {
       g = "git";
