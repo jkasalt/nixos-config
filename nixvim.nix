@@ -56,6 +56,8 @@
 
       guess-indent.enable = true;
 
+      fugitive.enable = true;
+
       gitsigns = {
         enable = true;
         settings = {
