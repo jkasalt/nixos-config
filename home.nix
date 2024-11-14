@@ -47,7 +47,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
     (writeShellScriptBin "task-git-sync" ''
-      #!/bin/sh
+      #!/usr/bin/env bash
 
       cd ~/.task/json || exit 1
       task export >all.json
