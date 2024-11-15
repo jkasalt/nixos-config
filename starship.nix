@@ -23,8 +23,11 @@
         "$git_metrics"
       ];
 
-      directory.style = "bold green";
-      directory.read_only = " 󰌾";
+      directory = {
+        style = "bold green";
+        read_only = "󰌾";
+        format = "[$path]($style)[$read_only]($read_only_style)";
+      };
 
       character = {
         success_symbol = "[❯](green)";
