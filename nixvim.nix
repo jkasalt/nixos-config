@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
@@ -16,6 +20,80 @@
     };
 
     colorschemes.nightfox.enable = true;
+
+    conform-nvim = {
+      enable = true;
+      luaConfig.pre =
+        # lua
+        "local slow_format_filetypes = {}";
+      settings = {
+        formatters_by_ft = {
+          bash = [
+            "shellcheck"
+            "shellharden"
+            "shfmt"
+          ];
+          javascript = {
+            __unkeyed-1 = "prettierd";
+            __unkeyed-2 = "prettier";
+            timeout_ms = 2000;
+            stop_after_first = true;
+          };
+          nix = ["alejandra"];
+          "_" = [
+            "squeeze_blanks"
+            "trim_whitespace"
+            "trim_newlines"
+          ];
+        };
+        format_on_save =
+          # Lua
+          ''
+            function(bufnr)
+              if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+                return
+              end
+
+              if slow_format_filetypes[vim.bo[bufnr].filetype] then
+                return
+              end
+
+              local function on_format(err)
+                if err and err:match("timeout$") then
+                  slow_format_filetypes[vim.bo[bufnr].filetype] = true
+                end
+              end
+
+              return { timeout_ms = 200, lsp_fallback = true }, on_format
+             end
+          '';
+        format_after_save =
+          # Lua
+          ''
+            function(bufnr)
+              if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+                return
+              end
+
+              if not slow_format_filetypes[vim.bo[bufnr].filetype] then
+                return
+              end
+
+              return { lsp_fallback = true }
+            end
+          '';
+        log_level = "warn";
+        notify_on_error = false;
+        notify_no_formatters = false;
+        formatters = {
+          alejandra.command = lib.getExe pkgs.alejandra;
+          shellcheck.command = lib.getExe pkgs.shellcheck;
+          shfmt.command = lib.getExe pkgs.shfmt;
+          shellharden.command = lib.getExe pkgs.shellharden;
+          squeeze_blanks.command = lib.getExe' pkgs.coreutils "cat";
+        };
+      };
+    };
 
     plugins = {
       bufferline.enable = true;
@@ -105,25 +183,6 @@
         };
       };
 
-      lsp-format.enable = true;
-
-      none-ls = {
-        enable = true;
-        sources = {
-          diagnostics = {
-            actionlint.enable = true;
-            deadnix.enable = true;
-            statix.enable = true;
-            yamllint.enable = true;
-          };
-          formatting = {
-            alejandra.enable = true;
-            ocamlformat.enable = true;
-            yamlfmt.enable = true;
-          };
-        };
-      };
-
       nui.enable = true;
 
       nvim-autopairs.enable = true;
@@ -138,9 +197,7 @@
       smart-splits = {
         enable = true;
         luaConfig.post =
-          /*
-          lua
-          */
+          # Lua
           ''
             -- recommended mappings
             -- resizing splits
@@ -220,5 +277,5 @@
     '';
   };
 
-  home.packages = with pkgs; [actionlint alejandra deadnix lombok statix yamllint];
+  home.packages = with pkgs; [lombok];
 }
