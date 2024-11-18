@@ -10,11 +10,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
@@ -39,7 +34,7 @@
 
       # Specify your home configuration modules here, for example,
       # the path to your home.nix.
-      modules = [./home.nix inputs.nixvim.homeManagerModules.nixvim];
+      modules = [./home.nix];
 
       # Optionally use extraSpecialArgs
       # to pass through arguments to home.nix
@@ -48,7 +43,7 @@
 
     homeConfigurations.laptop = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = [./home.nix inputs.nixvim.homeManagerModules.nixvim];
+      modules = [./home.nix];
       extraSpecialArgs = {username = "brua";};
     };
   };
