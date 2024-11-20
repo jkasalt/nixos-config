@@ -27,12 +27,15 @@
     taskwarrior3
     vit
     lazygit
+    bat
     devenv
     fd
     gh
+    jq
     jaq
     leetcode-cli
     nom
+    neovim
     python3
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
