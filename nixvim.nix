@@ -59,7 +59,7 @@
       conform-nvim = {
         enable = true;
         luaConfig.pre =
-          # lua
+          #Lua
           "local slow_format_filetypes = {}";
         settings = {
           formatters_by_ft = let
@@ -181,6 +181,7 @@
         };
         servers = {
           basedpyright.enable = true;
+          lua_ls.enable = true;
           ruff.enable = true;
           jdtls = {
             enable = true;
