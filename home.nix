@@ -19,7 +19,7 @@
     stateVersion = "24.05"; # Please read the comment before changing.
   };
 
-  imports = [./zsh.nix ./openshift.nix];
+  imports = [./nixvim.nix ./zsh.nix ./openshift.nix];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
