@@ -155,6 +155,16 @@
 
       intellitab.enable = true;
 
+      lint = {
+        enable = true;
+        lintersByFt = {
+          nix = ["statix"];
+        };
+        linters = {
+          statix.cmd = lib.getExe pkgs.statix;
+        };
+      };
+
       lsp = {
         enable = true;
         inlayHints = true;
