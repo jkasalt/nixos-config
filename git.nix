@@ -1,33 +1,7 @@
-{
-  enable = true;
-  delta.enable = true;
-  delta.options.side-by-side = true;
-
-  extraConfig = {
-    branch.sort = "-committerdate";
-    column.ui = "auto";
-    diff = {
-      colorMoved = "default";
-      algorithm = "histogram";
-      renames = "copies";
-    };
-    merge.conflictStyle = "diff3";
-    merge.tool = "nvimdiff4";
-
-    mergetool.nvimdiff4 = {
-      cmd = "nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
-    };
-
-    rerere.enabled = true;
-    pull.rebase = false;
-    push.autoSetupRemote = true;
-    init.defaultBranch = "main";
-  };
-
+_: let
   # Thank you: https://github.com/fufexan/dotfiles/blob/main/home/terminal/programs/git.nix
-  aliases = let
-    log = "log --show-notes='*' --abbrev-commit --pretty=format:'%Cred%h %Cgreen(%aD)%Creset -%C(bold red)%d%Creset %s %C(bold blue)<%an>% %Creset' --graph";
-  in {
+  log = "log --show-notes='*' --abbrev-commit --pretty=format:'%Cred%h %Cgreen(%aD)%Creset -%C(bold red)%d%Creset %s %C(bold blue)<%an>% %Creset' --graph";
+  gitAliases = {
     a = "add --patch"; # make it a habit to consciosly add hunks
     ad = "add";
 
@@ -45,7 +19,7 @@
     d = "diff";
     ds = "diff --staged";
 
-    h = "show";
+    h0 = "show";
     h1 = "show HEAD^";
     h2 = "show HEAD^^";
     h3 = "show HEAD^^^";
@@ -86,7 +60,40 @@
     forgor = "commit --amend --no-edit";
     oops = "restore";
   };
+in {
+  programs.git = {
+    enable = true;
+    delta.enable = true;
+    delta.options.side-by-side = true;
 
-  userEmail = "lucabr123@gmail.com";
-  userName = "Luca Bracone";
+    extraConfig = {
+      branch.sort = "-committerdate";
+      column.ui = "auto";
+      diff = {
+        colorMoved = "default";
+        algorithm = "histogram";
+        renames = "copies";
+      };
+      merge.conflictStyle = "diff3";
+      merge.tool = "nvimdiff4";
+
+      mergetool.nvimdiff4 = {
+        cmd = "nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
+      };
+
+      rerere.enabled = true;
+      pull.rebase = false;
+      push.autoSetupRemote = true;
+      init.defaultBranch = "main";
+    };
+
+    aliases = gitAliases;
+
+    userEmail = "lucabr123@gmail.com";
+    userName = "Luca Bracone";
+  };
+  programs.zsh.shellAliases = builtins.listToAttrs (map (key: {
+    name = "g${key}";
+    value = "git ${gitAliases.${key}}";
+  }) (builtins.attrNames gitAliases));
 }
