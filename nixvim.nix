@@ -19,7 +19,7 @@
       wrap = false;
     };
 
-    colorschemes.nightfox.enable = true;
+    colorschemes.poimandres.enable = true;
 
     plugins = {
       bufferline.enable = true;
@@ -67,12 +67,6 @@
           in {
             sh = shFormatters;
             bash = shFormatters;
-            javascript = {
-              __unkeyed-1 = "prettierd";
-              __unkeyed-2 = "prettier";
-              timeout_ms = 2000;
-              stop_after_first = true;
-            };
             nix = ["alejandra"];
             rust = ["rustfmt"];
             "_" = [
@@ -130,6 +124,8 @@
           };
         };
       };
+
+      dap.enable = true;
 
       fidget.enable = true;
 
@@ -267,6 +263,8 @@
       };
 
       undotree.enable = true;
+
+      tmux-navigator.enable = true;
 
       web-devicons.enable = true;
     };

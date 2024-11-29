@@ -24,9 +24,7 @@
       ];
 
       directory = {
-        style = "bold green";
         read_only = "󰌾";
-        format = "[$path]($style)[$read_only]($read_only_style)";
       };
 
       character = {
