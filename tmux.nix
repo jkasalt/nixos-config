@@ -8,6 +8,7 @@
       # tmux
       ''
         set-option -sa terminal-overrides ",xterm*:Tc"
+        set-option -g set-clipboard on
 
         bind -n M-H previous-window
         bind -n M-L next-window
