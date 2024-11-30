@@ -23,7 +23,7 @@
     keyMode = "vi";
     mouse = true;
     plugins = with pkgs.tmuxPlugins; [
-      nord
+      catppuccin
       vim-tmux-navigator
       yank
     ];
