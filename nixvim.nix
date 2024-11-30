@@ -67,6 +67,7 @@
           in {
             sh = shFormatters;
             bash = shFormatters;
+            hmtl = ["prettierd"];
             nix = ["alejandra"];
             rust = ["rustfmt"];
             "_" = [
@@ -116,6 +117,7 @@
           notify_no_formatters = false;
           formatters = {
             alejandra.command = lib.getExe pkgs.alejandra;
+            prettierd.command = lib.getExe pkgs.prettierd;
             shellcheck.command = lib.getExe pkgs.shellcheck;
             shfmt.command = lib.getExe pkgs.shfmt;
             shellharden.command = lib.getExe pkgs.shellharden;
@@ -179,6 +181,7 @@
           basedpyright.enable = true;
           lua_ls.enable = true;
           ruff.enable = true;
+          html.enable = true;
           jdtls = {
             enable = true;
             extraOptions.init_options.jvm_args = ["-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
