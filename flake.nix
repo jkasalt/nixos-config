@@ -47,7 +47,7 @@
     };
 
     homeConfigurations = {
-      desktop = homeConfig "nixos";
+      desktop = homeConfig "luca";
       laptop = homeConfig "brua";
     };
   };
