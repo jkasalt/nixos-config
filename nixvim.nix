@@ -69,7 +69,6 @@
             bash = shFormatters;
             hmtl = ["prettierd"];
             nix = ["alejandra"];
-            rust = ["rustfmt"];
             "_" = [
               "squeeze_blanks"
               "trim_whitespace"
@@ -122,7 +121,6 @@
             shfmt.command = lib.getExe pkgs.shfmt;
             shellharden.command = lib.getExe pkgs.shellharden;
             squeeze_blanks.command = lib.getExe' pkgs.coreutils "cat";
-            rustfmt.command = lib.getExe pkgs.rustfmt;
           };
         };
       };
