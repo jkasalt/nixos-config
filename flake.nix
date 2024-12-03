@@ -30,11 +30,11 @@
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        modules = [./home.nix inputs.nixvim.homeManagerModules.nixvim];
+        modules = [./home.nix];
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-        extraSpecialArgs = {inherit username;};
+        extraSpecialArgs = {inherit username inputs;};
       };
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {

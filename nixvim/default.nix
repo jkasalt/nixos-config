@@ -1,8 +1,14 @@
 {
+  inputs,
   pkgs,
   lib,
   ...
 }: {
+  imports = [
+    ./options.nix
+    inputs.nixvim.homeManagerModules.nixvim
+  ];
+
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
@@ -10,14 +16,6 @@
     vimAlias = true;
 
     globals.mapleader = " ";
-
-    opts = {
-      number = true;
-      relativenumber = true;
-      scrolloff = 4;
-      signcolumn = "yes:1";
-      wrap = false;
-    };
 
     colorschemes.catppuccin.enable = true;
 

@@ -19,7 +19,7 @@
     stateVersion = "24.05"; # Please read the comment before changing.
   };
 
-  imports = [./tmux.nix ./ssh.nix ./git.nix ./nixvim.nix ./zsh.nix ./openshift.nix];
+  imports = [./tmux.nix ./ssh.nix ./git.nix ./nixvim ./zsh.nix ./openshift.nix];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
