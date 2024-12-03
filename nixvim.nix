@@ -179,6 +179,7 @@
           basedpyright.enable = true;
           lua_ls.enable = true;
           ruff.enable = true;
+          tinymist.enable = true;
           jdtls = {
             enable = true;
             extraOptions.init_options.jvm_args = ["-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
