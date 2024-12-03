@@ -19,7 +19,7 @@
       wrap = false;
     };
 
-    colorschemes.poimandres.enable = true;
+    colorschemes.catppuccin.enable = true;
 
     plugins = {
       bufferline.enable = true;
