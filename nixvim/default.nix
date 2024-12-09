@@ -18,7 +18,6 @@
     globals.mapleader = " ";
 
     colorschemes.catppuccin.enable = true;
-
     plugins = {
       bufferline.enable = true;
 
@@ -109,6 +108,7 @@
           lua_ls.enable = true;
           ruff.enable = true;
           tinymist.enable = true;
+          html.enable = true;
           jdtls = {
             enable = true;
             extraOptions.init_options.jvm_args = ["-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
@@ -117,7 +117,7 @@
             enable = true;
             filetypes = ["yaml"];
           };
-          nixd.enable = true;
+          nil_ls.enable = true;
         };
       };
 
@@ -237,6 +237,17 @@
       require("leetcode").setup({
         lang = "python3",
       })
+
+      -- Workaround: https://github.com/neovim/neovim/issues/30985#issuecomment-2447329525
+      for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
+          local default_diagnostic_handler = vim.lsp.handlers[method]
+          vim.lsp.handlers[method] = function(err, result, context, config)
+              if err ~= nil and err.code == -32802 then
+                  return
+              end
+              return default_diagnostic_handler(err, result, context, config)
+          end
+      end
     '';
   };
 
