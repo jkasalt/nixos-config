@@ -275,8 +275,8 @@
       web-devicons.enable = true;
     };
 
-    extraPlugins = [
-      (pkgs.vimUtils.buildVimPlugin {
+    extraPlugins = with pkgs; [
+      (vimUtils.buildVimPlugin {
         name = "leetcode";
         src = pkgs.fetchFromGitHub {
           owner = "kawre";
