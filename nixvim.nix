@@ -24,8 +24,13 @@
     plugins = {
       bufferline.enable = true;
 
-      cmp = {
+      blink-cmp = {
         enable = true;
+        settings.keymap.preset = "enter";
+      };
+
+      cmp = {
+        enable = false;
         settings = {
           sources = [
             # LSP
