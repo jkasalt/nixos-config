@@ -101,6 +101,8 @@
         servers = {
           nil-ls.enable = false;
           nixd.enable = true;
+          ruff_lsp.enable = true;
+          jedi_language_server.enable = true;
         };
       };
 
