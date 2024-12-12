@@ -2,7 +2,7 @@
   description = "My NixOS WSL Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "nixpkgs";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -24,6 +24,18 @@
   } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
+    homeConfig = username:
+      home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        # Specify your home configuration modules here, for example,
+        # the path to your home.nix.
+        modules = [./home.nix inputs.nixvim.homeManagerModules.nixvim];
+
+        # Optionally use extraSpecialArgs
+        # to pass through arguments to home.nix
+        extraSpecialArgs = {inherit username;};
+      };
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
@@ -33,23 +45,9 @@
         ./configuration.nix
       ];
     };
-
-    homeConfigurations.desktop = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-
-      # Specify your home configuration modules here, for example,
-      # the path to your home.nix.
-      modules = [./home.nix inputs.nixvim.homeManagerModules.nixvim];
-
-      # Optionally use extraSpecialArgs
-      # to pass through arguments to home.nix
-      extraSpecialArgs = {username = "luca";};
-    };
-
-    homeConfigurations.laptop = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      modules = [./home.nix inputs.nixvim.homeManagerModules.nixvim];
-      extraSpecialArgs = {username = "brua";};
+    homeConfigurations = {
+      desktop = homeConfig "luca";
+      laptop = homeConfig "brua";
     };
   };
 }

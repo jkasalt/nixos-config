@@ -19,7 +19,7 @@
     stateVersion = "24.05"; # Please read the comment before changing.
   };
 
-  imports = [./nixvim.nix ./zsh.nix ./openshift.nix];
+  imports = [./tmux.nix ./ssh.nix ./git.nix ./nixvim.nix ./zsh.nix ./openshift.nix];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -27,8 +27,18 @@
     taskwarrior3
     vit
     lazygit
+    bat
+    devenv
     fd
+    gh
+    jq
     jaq
+    leetcode-cli
+    nom
+    python3
+    cargo-generate
+    xclip
+    openssh
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -42,13 +52,20 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
     (writeShellScriptBin "task-git-sync" ''
-      #!/bin/sh
+      #!/usr/bin/env bash
 
       cd ~/.task/json || exit 1
       task export >all.json
       git add all.json
       git commit -m "$(date)"
       git push
+    '')
+    (writeShellScriptBin "notes" ''
+      #!/usr/bin/env bash
+
+      TODAY=$(date -I)
+      FILENAME="notes-$TODAY.md"
+      nvim ~/notes/$FILENAME
     '')
   ];
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -85,7 +102,10 @@
     EDITOR = "nvim";
   };
   programs = {
-    git = import ./git.nix;
+    opam = {
+      enable = true;
+      enableZshIntegration = true;
+    };
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

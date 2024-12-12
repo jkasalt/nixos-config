@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
@@ -12,20 +16,10 @@
       relativenumber = true;
       scrolloff = 4;
       signcolumn = "yes:1";
+      wrap = false;
     };
 
-    colorschemes.catppuccin = {
-      enable = false;
-      settings = {
-        flavour = "mocha";
-        integrations = {nvim_surround = true;};
-      };
-    };
-
-    colorschemes.nightfox = {
-      enable = true;
-      flavor = "nightfox";
-    };
+    colorschemes.catppuccin.enable = true;
 
     plugins = {
       bufferline.enable = true;
@@ -62,9 +56,82 @@
         };
       };
 
+      conform-nvim = {
+        enable = true;
+        luaConfig.pre =
+          #Lua
+          "local slow_format_filetypes = {}";
+        settings = {
+          formatters_by_ft = let
+            shFormatters = ["shellcheck" "shellharden" "shfmt"];
+          in {
+            sh = shFormatters;
+            bash = shFormatters;
+            hmtl = ["prettierd"];
+            nix = ["alejandra"];
+            "_" = [
+              "squeeze_blanks"
+              "trim_whitespace"
+              "trim_newlines"
+            ];
+          };
+          format_on_save =
+            # Lua
+            ''
+              function(bufnr)
+                if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+                  return
+                end
+
+                if slow_format_filetypes[vim.bo[bufnr].filetype] then
+                  return
+                end
+
+                local function on_format(err)
+                  if err and err:match("timeout$") then
+                    slow_format_filetypes[vim.bo[bufnr].filetype] = true
+                  end
+                end
+
+                return { timeout_ms = 200, lsp_fallback = true }, on_format
+               end
+            '';
+          format_after_save =
+            # Lua
+            ''
+              function(bufnr)
+                if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+                  return
+                end
+
+                if not slow_format_filetypes[vim.bo[bufnr].filetype] then
+                  return
+                end
+
+                return { lsp_fallback = true }
+              end
+            '';
+          log_level = "warn";
+          notify_on_error = false;
+          notify_no_formatters = false;
+          formatters = {
+            alejandra.command = lib.getExe pkgs.alejandra;
+            prettierd.command = lib.getExe pkgs.prettierd;
+            shellcheck.command = lib.getExe pkgs.shellcheck;
+            shfmt.command = lib.getExe pkgs.shfmt;
+            shellharden.command = lib.getExe pkgs.shellharden;
+            squeeze_blanks.command = lib.getExe' pkgs.coreutils "cat";
+          };
+        };
+      };
+
+      dap.enable = true;
+
       fidget.enable = true;
 
       guess-indent.enable = true;
+
+      fugitive.enable = true;
 
       gitsigns = {
         enable = true;
@@ -84,6 +151,16 @@
 
       intellitab.enable = true;
 
+      lint = {
+        enable = true;
+        lintersByFt = {
+          nix = ["statix"];
+        };
+        linters = {
+          statix.cmd = lib.getExe pkgs.statix;
+        };
+      };
+
       lsp = {
         enable = true;
         inlayHints = true;
@@ -99,52 +176,59 @@
           };
         };
         servers = {
-          nil-ls.enable = false;
-          nixd.enable = true;
-          ruff_lsp.enable = true;
-          jedi_language_server.enable = true;
+          basedpyright.enable = true;
+          lua_ls.enable = true;
+          ruff.enable = true;
+          html.enable = true;
+          jdtls = {
+            enable = true;
+            extraOptions.init_options.jvm_args = ["-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
+          };
+          docker_compose_language_service = {
+            enable = true;
+            filetypes = ["yaml"];
+          };
+          nil_ls.enable = true;
         };
       };
 
-      lsp-format.enable = true;
-      lsp-lines.enable = true;
-      lsp-lines.luaConfig.post = ''
-        vim.diagnostic.config({ virtual_text = true })
-        vim.diagnostic.config({ virtual_lines = false }) -- by default this plugin is off
-        vim.keymap.set( -- enable it when needed with this keymap
-          "",
-          "gh",
-          require("lsp_lines").toggle,
-          { desc = "Toggle lsp_lines" }
-        )
-      '';
-
-      none-ls = {
-        enable = true;
-        sources = {
-          diagnostics = {
-            actionlint.enable = true;
-            deadnix.enable = true;
-            statix.enable = true;
-            yamllint.enable = true;
-          };
-          formatting = {
-            alejandra.enable = true;
-          };
-        };
-      };
+      nui.enable = true;
 
       nvim-autopairs.enable = true;
 
-      nvim-jdtls = {
+      nvim-surround.enable = true;
+
+      otter = {
         enable = true;
-        cmd = ["${pkgs.jdt-language-server}/bin/jdtls" "-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
-        settings.java = {
-          jdt.ls.lombokSupport.enabled = true;
-        };
+        settings.handle_leading_whitespace = true;
       };
 
-      nvim-surround.enable = true;
+      smart-splits = {
+        enable = true;
+        luaConfig.post =
+          # Lua
+          ''
+            -- recommended mappings
+            -- resizing splits
+            -- these keymaps will also accept a range,
+            -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
+            vim.keymap.set('n', '<A-h>', require('smart-splits').resize_left)
+            vim.keymap.set('n', '<A-j>', require('smart-splits').resize_down)
+            vim.keymap.set('n', '<A-k>', require('smart-splits').resize_up)
+            vim.keymap.set('n', '<A-l>', require('smart-splits').resize_right)
+            -- moving between splits
+            vim.keymap.set('n', '<C-h>', require('smart-splits').move_cursor_left)
+            vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down)
+            vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
+            vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
+            vim.keymap.set('n', '<C-->', require('smart-splits').move_cursor_previous)
+            -- swapping buffers between windows
+            vim.keymap.set('n', '<C-H>', require('smart-splits').swap_buf_left)
+            vim.keymap.set('n', '<C-J>', require('smart-splits').swap_buf_down)
+            vim.keymap.set('n', '<C-K>', require('smart-splits').swap_buf_up)
+            vim.keymap.set('n', '<C-L>', require('smart-splits').swap_buf_right)
+          '';
+      };
 
       render-markdown.enable = true;
 
@@ -169,10 +253,11 @@
 
       telescope = {
         enable = true;
+        extensions.fzf-native.enable = true;
         keymaps = {
           "<leader><leader>" = {
-            action = "git_files";
-            options.desc = "Telescope git files";
+            action = "fd";
+            options.desc = "Telescope find files";
           };
           "<leader>fg" = "live_grep";
         };
@@ -180,9 +265,41 @@
 
       undotree.enable = true;
 
+      tmux-navigator.enable = true;
+
       web-devicons.enable = true;
     };
+
+    extraPlugins = [
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "leetcode";
+        src = pkgs.fetchFromGitHub {
+          owner = "kawre";
+          repo = "leetcode.nvim";
+          rev = "6a2e54ff13027fb3ce46b61a0e721eccc020ec80";
+          hash = "sha256-jLuqsUnEgPFCp97G5sDqP4+DfIWc/uy0a6oTkMIXXtE=";
+        };
+      })
+    ];
+    extraConfigLua =
+      # Lua
+      ''
+      require("leetcode").setup({
+        lang = "python3",
+      })
+
+      -- Workaround: https://github.com/neovim/neovim/issues/30985#issuecomment-2447329525
+      for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
+          local default_diagnostic_handler = vim.lsp.handlers[method]
+          vim.lsp.handlers[method] = function(err, result, context, config)
+              if err ~= nil and err.code == -32802 then
+                  return
+              end
+              return default_diagnostic_handler(err, result, context, config)
+          end
+      end
+    '';
   };
 
-  home.packages = with pkgs; [actionlint alejandra deadnix jdt-language-server lombok statix yamllint];
+  home.packages = with pkgs; [lombok];
 }
