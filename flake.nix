@@ -43,7 +43,7 @@
 
       # Optionally use extraSpecialArgs
       # to pass through arguments to home.nix
-      extraSpecialArgs = {username = "nixos";};
+      extraSpecialArgs = {username = "luca";};
     };
 
     homeConfigurations.laptop = home-manager.lib.homeManagerConfiguration {
