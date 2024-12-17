@@ -19,7 +19,17 @@
       wrap = false;
     };
 
-    colorschemes.catppuccin.enable = true;
+    # colorschemes.catppuccin = {
+    #   enable = true;
+    #   settings = {
+    #     background.dark = "mocha";
+    #     color_overrides = {
+    #       mocha = {
+    #         base = "#1b1b1b";
+    #       };
+    #     };
+    #   };
+    # };
 
     plugins = {
       bufferline.enable = true;
@@ -285,11 +295,24 @@
           hash = "sha256-jLuqsUnEgPFCp97G5sDqP4+DfIWc/uy0a6oTkMIXXtE=";
         };
       })
+      (vimUtils.buildVimPlugin {
+        name = "gruvbox-material";
+        src = pkgs.fetchFromGitHub {
+          owner = "sainnhe";
+          repo = "gruvbox-material";
+          rev = "170148af9350f578f3623f810e54698fa1e5bdbf";
+          hash = "sha256-qErvjgqqWaCFeC9rdKQIRoHPhIew7GLxoXXYcqUVlI0=";
+        };
+      })
     ];
     extraConfigLua = ''
       require("leetcode").setup({
         lang = "python3",
       })
+
+      vim.g.gruvbox_material_background = "hard"
+      vim.g.gruvbox_material_better_performance = 1
+      vim.cmd([[colo gruvbox-material]])
 
       -- Workaround: https://github.com/neovim/neovim/issues/30985#issuecomment-2447329525
       for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
@@ -304,5 +327,5 @@
     '';
   };
 
-  home.packages = with pkgs; [lombok];
+  home.packages = with pkgs; [lombok ripgrep];
 }
