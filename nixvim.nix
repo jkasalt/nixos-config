@@ -19,7 +19,7 @@
       wrap = false;
     };
 
-    colorschemes.catppuccin.enable = true;
+    colorschemes.nightfox.enable = true;
 
     plugins = {
       bufferline.enable = true;
@@ -281,9 +281,7 @@
         };
       })
     ];
-    extraConfigLua =
-      # Lua
-      ''
+    extraConfigLua = ''
       require("leetcode").setup({
         lang = "python3",
       })
