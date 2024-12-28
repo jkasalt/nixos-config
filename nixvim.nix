@@ -279,6 +279,8 @@
         };
       };
 
+      ts-autotag.enable = true;
+
       undotree.enable = true;
 
       tmux-navigator.enable = true;
