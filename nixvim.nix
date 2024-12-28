@@ -284,6 +284,8 @@
       tmux-navigator.enable = true;
 
       web-devicons.enable = true;
+
+      zen-mode.enable = true;
     };
 
     extraPlugins = with pkgs; [
