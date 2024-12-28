@@ -311,15 +311,28 @@
           hash = "sha256-qErvjgqqWaCFeC9rdKQIRoHPhIew7GLxoXXYcqUVlI0=";
         };
       })
+      vimPlugins.nightfox-nvim
+      vimPlugins.palette-nvim
+      vimPlugins.oxocarbon-nvim
+      vimPlugins.lush-nvim
+      vimPlugins.zenbones-nvim
+      vimPlugins.lazydev-nvim
     ];
-    extraConfigLua = ''
-      require("leetcode").setup({
-        lang = "python3",
-      })
 
-      vim.g.gruvbox_material_background = "hard"
-      vim.g.gruvbox_material_better_performance = 1
-      vim.cmd([[colo gruvbox-material]])
+    extraConfigLuaPre = ''
+      local hour = tonumber(os.date("%H"))
+      if hour >= 6 and hour < 18 then
+        vim.o.background = "light"
+      else
+        vim.o.background = "dark"
+      end
+    '';
+
+    extraConfigLua = ''
+      require("leetcode").setup({ lang = "python3" })
+      require("lazydev").setup()
+
+      vim.cmd([[colo zenbones]])
 
       -- Workaround: https://github.com/neovim/neovim/issues/30985#issuecomment-2447329525
       for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
