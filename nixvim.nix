@@ -260,6 +260,7 @@
           rust-analyzer = {
             cargo = {allFeatures = true;};
             check = {command = "clippy";};
+            files.excludeDirs = [".direnv"];
           };
         };
       };
