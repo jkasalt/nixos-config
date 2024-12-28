@@ -306,11 +306,13 @@
       vimPlugins.lazydev-nvim
     ];
 
-    extraConfigLuaPre = ''
+    extraConfigLuaPost = ''
       local hour = tonumber(os.date("%H"))
       if hour >= 6 and hour < 18 then
+        vim.o.background = "dark"
         vim.o.background = "light"
       else
+        vim.o.background = "light"
         vim.o.background = "dark"
       end
     '';
