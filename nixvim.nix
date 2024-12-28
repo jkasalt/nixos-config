@@ -36,13 +36,7 @@
 
       blink-cmp = {
         enable = true;
-        settings = {
-          keymap.preset = "enter";
-          accept.auto_brackets.enabled = true;
-          highlights.use_nvim_cmp_as_default = true;
-          trigger.signature_help.enable = true;
-          windows.documentation.auto_show = true;
-        };
+        settings.keymap.preset = "super-tab";
       };
 
       cmp = {
