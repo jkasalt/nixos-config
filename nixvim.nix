@@ -290,15 +290,6 @@
 
     extraPlugins = with pkgs; [
       (vimUtils.buildVimPlugin {
-        name = "leetcode";
-        src = pkgs.fetchFromGitHub {
-          owner = "kawre";
-          repo = "leetcode.nvim";
-          rev = "6a2e54ff13027fb3ce46b61a0e721eccc020ec80";
-          hash = "sha256-jLuqsUnEgPFCp97G5sDqP4+DfIWc/uy0a6oTkMIXXtE=";
-        };
-      })
-      (vimUtils.buildVimPlugin {
         name = "gruvbox-material";
         src = pkgs.fetchFromGitHub {
           owner = "sainnhe";
@@ -325,7 +316,6 @@
     '';
 
     extraConfigLua = ''
-      require("leetcode").setup({ lang = "python3" })
       require("lazydev").setup()
 
       vim.cmd([[colo zenbones]])
