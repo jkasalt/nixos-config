@@ -84,6 +84,7 @@
             bash = shFormatters;
             hmtl = ["prettierd"];
             nix = ["alejandra"];
+            javascript = ["biome"];
             "_" = [
               "squeeze_blanks"
               "trim_whitespace"
@@ -132,6 +133,7 @@
           formatters = {
             alejandra.command = lib.getExe pkgs.alejandra;
             prettierd.command = lib.getExe pkgs.prettierd;
+            biome.command = lib.getExe pkgs.biome;
             shellcheck.command = lib.getExe pkgs.shellcheck;
             shfmt.command = lib.getExe pkgs.shfmt;
             shellharden.command = lib.getExe pkgs.shellharden;
@@ -191,18 +193,25 @@
           };
         };
         servers = {
+          # python
           basedpyright.enable = true;
-          lua_ls.enable = true;
           ruff.enable = true;
-          html.enable = true;
+          # lua
+          lua_ls.enable = true;
+          # webdev
+          superhtml.enable = true;
+          biome.enable = true;
+          # java
           jdtls = {
             enable = true;
             extraOptions.init_options.jvm_args = ["-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
           };
+          # docker compose
           docker_compose_language_service = {
             enable = true;
             filetypes = ["yaml"];
           };
+          # nix
           nil_ls.enable = true;
         };
       };
