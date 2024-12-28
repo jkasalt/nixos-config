@@ -67,6 +67,13 @@
       FILENAME="notes-$TODAY.md"
       nvim ~/notes/$FILENAME
     '')
+    (writeShellScriptBin "nixcfg" ''
+      #!/usr/bin/env bash
+      cd ${config.home.homeDirectory}/nixos-config || exit 1 # how to make this more robust?
+      ''$SHELL
+      git add .
+      git commit
+    '')
   ];
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
