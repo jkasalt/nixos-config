@@ -201,6 +201,7 @@
           # webdev
           superhtml.enable = true;
           biome.enable = true;
+          volar.enable = true;
           # java
           jdtls = {
             enable = true;
@@ -289,6 +290,8 @@
       };
 
       ts-autotag.enable = true;
+
+      typescript-tools.enable = true;
 
       undotree.enable = true;
 
