@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
   imports = [./starship.nix];
@@ -29,11 +30,19 @@
       ''
     ];
 
-    shellAliases = {
-      g = "git";
-      us = "systemctl --user"; # mnemonic for user systemctl
-      rs = "sudo systemctl"; # mnemonic for root systemctl
-    };
+    shellAliases = let
+      gitAliases = config.programs.git.aliases;
+      gitShellAliases = builtins.listToAttrs (map (key: {
+        name = "g${key}";
+        value = "git ${gitAliases.${key}}";
+      }) (builtins.attrNames gitAliases));
+    in
+      {
+        g = "git";
+        us = "systemctl --user"; # mnemonic for user systemctl
+        rs = "sudo systemctl"; # mnemonic for root systemctl
+      }
+      // gitShellAliases;
   };
 
   programs = {

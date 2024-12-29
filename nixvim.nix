@@ -19,13 +19,28 @@
       wrap = false;
     };
 
-    colorschemes.nightfox.enable = true;
+    # colorschemes.catppuccin = {
+    #   enable = true;
+    #   settings = {
+    #     background.dark = "mocha";
+    #     color_overrides = {
+    #       mocha = {
+    #         base = "#1b1b1b";
+    #       };
+    #     };
+    #   };
+    # };
 
     plugins = {
       bufferline.enable = true;
 
-      cmp = {
+      blink-cmp = {
         enable = true;
+        settings.keymap.preset = "super-tab";
+      };
+
+      cmp = {
+        enable = false;
         settings = {
           sources = [
             # LSP
@@ -69,6 +84,7 @@
             bash = shFormatters;
             hmtl = ["prettierd"];
             nix = ["alejandra"];
+            javascript = ["biome"];
             "_" = [
               "squeeze_blanks"
               "trim_whitespace"
@@ -117,6 +133,7 @@
           formatters = {
             alejandra.command = lib.getExe pkgs.alejandra;
             prettierd.command = lib.getExe pkgs.prettierd;
+            biome.command = lib.getExe pkgs.biome;
             shellcheck.command = lib.getExe pkgs.shellcheck;
             shfmt.command = lib.getExe pkgs.shfmt;
             shellharden.command = lib.getExe pkgs.shellharden;
@@ -176,18 +193,25 @@
           };
         };
         servers = {
+          # python
           basedpyright.enable = true;
-          lua_ls.enable = true;
           ruff.enable = true;
-          html.enable = true;
+          # lua
+          lua_ls.enable = true;
+          # webdev
+          superhtml.enable = true;
+          biome.enable = true;
+          # java
           jdtls = {
             enable = true;
             extraOptions.init_options.jvm_args = ["-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
           };
+          # docker compose
           docker_compose_language_service = {
             enable = true;
             filetypes = ["yaml"];
           };
+          # nix
           nil_ls.enable = true;
         };
       };
@@ -239,6 +263,7 @@
           rust-analyzer = {
             cargo = {allFeatures = true;};
             check = {command = "clippy";};
+            files.excludeDirs = [".direnv"];
           };
         };
       };
@@ -263,28 +288,50 @@
         };
       };
 
+      ts-autotag.enable = true;
+
       undotree.enable = true;
 
       tmux-navigator.enable = true;
 
       web-devicons.enable = true;
+
+      zen-mode.enable = true;
     };
 
-    extraPlugins = [
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "leetcode";
+    extraPlugins = with pkgs; [
+      (vimUtils.buildVimPlugin {
+        name = "gruvbox-material";
         src = pkgs.fetchFromGitHub {
-          owner = "kawre";
-          repo = "leetcode.nvim";
-          rev = "6a2e54ff13027fb3ce46b61a0e721eccc020ec80";
-          hash = "sha256-jLuqsUnEgPFCp97G5sDqP4+DfIWc/uy0a6oTkMIXXtE=";
+          owner = "sainnhe";
+          repo = "gruvbox-material";
+          rev = "170148af9350f578f3623f810e54698fa1e5bdbf";
+          hash = "sha256-qErvjgqqWaCFeC9rdKQIRoHPhIew7GLxoXXYcqUVlI0=";
         };
       })
+      vimPlugins.nightfox-nvim
+      vimPlugins.palette-nvim
+      vimPlugins.oxocarbon-nvim
+      vimPlugins.lush-nvim
+      vimPlugins.zenbones-nvim
+      vimPlugins.lazydev-nvim
     ];
+
+    extraConfigLuaPost = ''
+      local hour = tonumber(os.date("%H"))
+      if hour >= 6 and hour < 18 then
+        vim.o.background = "dark"
+        vim.o.background = "light"
+      else
+        vim.o.background = "light"
+        vim.o.background = "dark"
+      end
+    '';
+
     extraConfigLua = ''
-      require("leetcode").setup({
-        lang = "python3",
-      })
+      require("lazydev").setup()
+
+      vim.cmd([[colo zenbones]])
 
       -- Workaround: https://github.com/neovim/neovim/issues/30985#issuecomment-2447329525
       for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
@@ -299,5 +346,5 @@
     '';
   };
 
-  home.packages = with pkgs; [lombok];
+  home.packages = with pkgs; [lombok ripgrep];
 }
