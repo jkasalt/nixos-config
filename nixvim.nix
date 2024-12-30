@@ -112,7 +112,7 @@
                   end
                 end
 
-                return { timeout_ms = 200, lsp_fallback = true }, on_format
+                return { timeout_ms = 200, lsp_fallback = "fallback" }, on_format
                end
             '';
           format_after_save =
@@ -127,7 +127,7 @@
                   return
                 end
 
-                return { lsp_fallback = true }
+                return { lsp_fallback = "fallback" }
               end
             '';
           log_level = "warn";
