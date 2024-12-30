@@ -85,6 +85,7 @@
             hmtl = ["prettierd"];
             nix = ["alejandra"];
             javascript = ["biome"];
+            typescriptreact = ["biome"];
             "_" = [
               "squeeze_blanks"
               "trim_whitespace"
