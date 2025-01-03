@@ -17,12 +17,24 @@
 
     globals.mapleader = " ";
 
-    colorschemes.catppuccin.enable = true;
+    opts = {
+      number = true;
+      relativenumber = true;
+      scrolloff = 4;
+      signcolumn = "yes:1";
+      wrap = false;
+    };
+
     plugins = {
       bufferline.enable = true;
 
-      cmp = {
+      blink-cmp = {
         enable = true;
+        settings.keymap.preset = "super-tab";
+      };
+
+      cmp = {
+        enable = false;
         settings = {
           sources = [
             # LSP
@@ -104,19 +116,28 @@
           };
         };
         servers = {
+          # python
           basedpyright.enable = true;
-          lua_ls.enable = true;
           ruff.enable = true;
+          # typst
           tinymist.enable = true;
-          html.enable = true;
+          # lua
+          lua_ls.enable = true;
+          # webdev
+          superhtml.enable = true;
+          biome.enable = true;
+          volar.enable = true;
+          # java
           jdtls = {
             enable = true;
             extraOptions.init_options.jvm_args = ["-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
           };
+          # docker compose
           docker_compose_language_service = {
             enable = true;
             filetypes = ["yaml"];
           };
+          # nix
           nil_ls.enable = true;
         };
       };
@@ -149,6 +170,8 @@
       nvim-autopairs.enable = true;
 
       nvim-surround.enable = true;
+
+      oil.enable = true;
 
       otter = {
         enable = true;
@@ -193,6 +216,7 @@
           rust-analyzer = {
             cargo = {allFeatures = true;};
             check = {command = "clippy";};
+            files.excludeDirs = [".direnv"];
           };
         };
       };
@@ -217,28 +241,52 @@
         };
       };
 
+      ts-autotag.enable = true;
+
+      typescript-tools.enable = true;
+
       undotree.enable = true;
 
       tmux-navigator.enable = true;
 
       web-devicons.enable = true;
+
+      zen-mode.enable = true;
     };
 
-    extraPlugins = [
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "leetcode";
+    extraPlugins = with pkgs; [
+      (vimUtils.buildVimPlugin {
+        name = "gruvbox-material";
         src = pkgs.fetchFromGitHub {
-          owner = "kawre";
-          repo = "leetcode.nvim";
-          rev = "6a2e54ff13027fb3ce46b61a0e721eccc020ec80";
-          hash = "sha256-jLuqsUnEgPFCp97G5sDqP4+DfIWc/uy0a6oTkMIXXtE=";
+          owner = "sainnhe";
+          repo = "gruvbox-material";
+          rev = "170148af9350f578f3623f810e54698fa1e5bdbf";
+          hash = "sha256-qErvjgqqWaCFeC9rdKQIRoHPhIew7GLxoXXYcqUVlI0=";
         };
       })
+      vimPlugins.nightfox-nvim
+      vimPlugins.palette-nvim
+      vimPlugins.oxocarbon-nvim
+      vimPlugins.lush-nvim
+      vimPlugins.zenbones-nvim
+      vimPlugins.lazydev-nvim
     ];
+
+    extraConfigLuaPost = ''
+      local hour = tonumber(os.date("%H"))
+      if hour >= 6 and hour < 18 then
+        vim.o.background = "dark"
+        vim.o.background = "light"
+      else
+        vim.o.background = "light"
+        vim.o.background = "dark"
+      end
+    '';
+
     extraConfigLua = ''
-      require("leetcode").setup({
-        lang = "python3",
-      })
+      require("lazydev").setup()
+
+      vim.cmd([[colo zenbones]])
 
       -- Workaround: https://github.com/neovim/neovim/issues/30985#issuecomment-2447329525
       for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
@@ -253,5 +301,5 @@
     '';
   };
 
-  home.packages = with pkgs; [lombok];
+  home.packages = with pkgs; [lombok ripgrep];
 }

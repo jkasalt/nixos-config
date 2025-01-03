@@ -45,7 +45,6 @@
         ./configuration.nix
       ];
     };
-
     homeConfigurations = {
       desktop = homeConfig "luca";
       laptop = homeConfig "brua";

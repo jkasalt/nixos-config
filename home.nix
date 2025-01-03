@@ -39,6 +39,8 @@
     cargo-generate
     xclip
     openssh
+    nix-direnv
+    yarn
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -66,6 +68,20 @@
       TODAY=$(date -I)
       FILENAME="notes-$TODAY.md"
       nvim ~/notes/$FILENAME
+    '')
+    (writeShellScriptBin "journal" ''
+      #!/usr/bin/env bash
+
+      TODAY=$(date -I)
+      FILENAME="$TODAY.md"
+      nvim ~/journal/$FILENAME
+    '')
+    (writeShellScriptBin "nixcfg" ''
+      #!/usr/bin/env bash
+      cd ${config.home.homeDirectory}/nixos-config || exit 1 # how to make this more robust?
+      ''$SHELL
+      git add .
+      git commit
     '')
   ];
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
