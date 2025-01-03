@@ -182,6 +182,8 @@
           '';
       };
 
+      snacks.enable = true;
+
       render-markdown.enable = true;
 
       rustaceanvim = {
