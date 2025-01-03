@@ -124,7 +124,7 @@
           # lua
           lua_ls.enable = true;
           # webdev
-          superhtml.enable = true;
+          html.enable = true;
           biome.enable = true;
           volar.enable = true;
           # java
