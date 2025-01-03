@@ -29,6 +29,7 @@
     lazygit
     bat
     devenv
+    exercism
     fd
     gh
     jq
