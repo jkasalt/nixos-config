@@ -11,6 +11,7 @@
       register = "unnamedplus";
       providers.xclip.enable = true;
     };
+
     opts = {
       updatetime = 100;
 
