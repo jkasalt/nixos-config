@@ -16,16 +16,6 @@
     viAlias = true;
     vimAlias = true;
 
-    globals.mapleader = " ";
-
-    opts = {
-      number = true;
-      relativenumber = true;
-      scrolloff = 4;
-      signcolumn = "yes:1";
-      wrap = false;
-    };
-
     plugins = {
       bufferline.enable = true;
 
