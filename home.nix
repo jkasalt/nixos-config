@@ -35,6 +35,7 @@
     jq
     jaq
     leetcode-cli
+    manix
     nom
     python3
     cargo-generate
