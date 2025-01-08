@@ -232,7 +232,11 @@
 
       telescope = {
         enable = true;
-        extensions.fzf-native.enable = true;
+        extensions = {
+          fzf-native.enable = true;
+          manix.enable = true;
+          ui-select.enable = true;
+        };
         keymaps = {
           "<leader><leader>" = {
             action = "fd";
