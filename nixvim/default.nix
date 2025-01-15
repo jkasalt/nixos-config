@@ -152,6 +152,7 @@
             biome.enable = true;
             # sqruff.enable = true;
             typstyle.enable = true;
+            prettierd.enable = true;
           };
         };
       };
