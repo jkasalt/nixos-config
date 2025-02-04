@@ -24,24 +24,25 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    taskwarrior3
-    vit
-    lazygit
+    awscli
     bat
+    cargo-generate
     devenv
+    docker
     exercism
     fd
     gh
-    jq
     jaq
-    leetcode-cli
-    manix
-    nom
-    python3
-    cargo-generate
-    xclip
-    openssh
+    jq
+    lazygit
     nix-direnv
+    nodejs_22
+    openssh
+    opentofu
+    python3
+    taskwarrior3
+    vit
+    xclip
     yarn
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

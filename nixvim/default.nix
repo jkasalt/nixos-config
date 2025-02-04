@@ -117,19 +117,22 @@
           # webdev
           html.enable = true;
           biome.enable = true;
-          volar.enable = true;
           # java
           jdtls = {
             enable = true;
             extraOptions.init_options.jvm_args = ["-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
           };
-          # docker compose
+          # docker
+          dockerls.enable = true;
           docker_compose_language_service = {
             enable = true;
             filetypes = ["yaml"];
           };
           # nix
           nil_ls.enable = true;
+          # terraform
+          terraformls.enable = true;
+          tflint.enable = true;
         };
       };
 
@@ -143,14 +146,14 @@
           };
           diagnostics = {
             actionlint.enable = true;
+            hadolint.enable = true;
             # sqruff.enable = true;
             statix.enable = true;
             tidy.enable = true;
           };
           formatting = {
             alejandra.enable = true;
-            biome.enable = true;
-            # sqruff.enable = true;
+            prisma_format.enable = true;
             typstyle.enable = true;
           };
         };
