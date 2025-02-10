@@ -136,7 +136,13 @@
             filetypes = ["yaml"];
           };
           # nix
-          nil_ls.enable = true;
+          nil_ls = {
+            enable = true;
+            settings = {
+              nix.flake.autoArchive = true;
+              formatting.command = null;
+            };
+          };
           # terraform
           terraformls.enable = true;
           tflint.enable = true;
@@ -206,7 +212,10 @@
           '';
       };
 
-      snacks.enable = true;
+      snacks = {
+        enable = true;
+        settings.bigfile.enabled = true;
+      };
 
       render-markdown.enable = true;
 
