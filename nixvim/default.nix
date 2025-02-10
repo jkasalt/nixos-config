@@ -16,6 +16,8 @@
     viAlias = true;
     vimAlias = true;
 
+    colorschemes.vscode.enable = true;
+
     plugins = {
       bufferline.enable = true;
 
