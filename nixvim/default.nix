@@ -16,7 +16,7 @@
     viAlias = true;
     vimAlias = true;
 
-    colorschemes.vscode.enable = true;
+    colorschemes.poimandres.enable = true;
 
     plugins = {
       bufferline.enable = true;
@@ -82,16 +82,6 @@
       hex.enable = true;
 
       intellitab.enable = true;
-
-      lint = {
-        enable = true;
-        lintersByFt = {
-          nix = ["statix"];
-        };
-        linters = {
-          statix.cmd = lib.getExe pkgs.statix;
-        };
-      };
 
       lsp = {
         enable = true;
