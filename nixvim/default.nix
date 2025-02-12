@@ -22,8 +22,7 @@
       bufferline.enable = true;
 
       blink-cmp = {
-        enable = false;
-        settings.keymap.preset = "super-tab";
+        enable = true;
       };
 
       cmp = {
@@ -56,11 +55,6 @@
             "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           };
         };
-      };
-
-      coq-nvim = {
-        enable = true;
-        settings.auto_start = true;
       };
 
       dap.enable = true;
