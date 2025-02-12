@@ -168,6 +168,7 @@
             alejandra.enable = true;
             prisma_format.enable = true;
             typstyle.enable = true;
+            yamlfmt.enable = true;
           };
         };
       };
@@ -269,12 +270,12 @@
 
     extraPlugins = with pkgs; [
       (vimUtils.buildVimPlugin {
-        name = "gruvbox-material";
+        name = "falcon";
         src = pkgs.fetchFromGitHub {
-          owner = "sainnhe";
-          repo = "gruvbox-material";
-          rev = "170148af9350f578f3623f810e54698fa1e5bdbf";
-          hash = "sha256-qErvjgqqWaCFeC9rdKQIRoHPhIew7GLxoXXYcqUVlI0=";
+          owner = "fenetikm";
+          repo = "falcon";
+          rev = "a7f5d325ebdad20c8b74ebe4f4fede8d451ac1dd";
+          hash = "sha256-ihlXhQ1hFQXuv+X6eKQ+AbHnUz8O/06BQEuIh4CNksI=";
         };
       })
       vimPlugins.nightfox-nvim
