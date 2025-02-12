@@ -160,7 +160,6 @@
           };
           formatting = {
             alejandra.enable = true;
-            prisma_format.enable = true;
             typstyle.enable = true;
             yamlfmt.enable = true;
           };
@@ -275,8 +274,8 @@
       vimPlugins.nightfox-nvim
       vimPlugins.palette-nvim
       vimPlugins.oxocarbon-nvim
-      vimPlugins.lush-nvim
-      vimPlugins.zenbones-nvim
+      # vimPlugins.lush-nvim
+      # vimPlugins.zenbones-nvim
       vimPlugins.lazydev-nvim
       vimPlugins.leetcode-nvim
     ];
@@ -294,7 +293,7 @@
 
     extraConfigLua = ''
       require("lazydev").setup()
-      vim.cmd([[colo zenbones]])
+      -- vim.cmd([[colo zenbones]])
       require("leetcode").setup()
     '';
   };
