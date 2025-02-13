@@ -1,12 +1,12 @@
 {
   inputs,
   pkgs,
-  lib,
   ...
 }: {
   imports = [
     ./options.nix
     ./keymaps.nix
+    ./plugins
     inputs.nixvim.homeManagerModules.nixvim
   ];
 
@@ -16,47 +16,9 @@
     viAlias = true;
     vimAlias = true;
 
-    colorschemes.poimandres.enable = true;
+    colorschemes.tokyonight.enable = true;
 
     plugins = {
-      bufferline.enable = true;
-
-      blink-cmp = {
-        enable = true;
-      };
-
-      cmp = {
-        enable = false;
-        settings = {
-          sources = [
-            # LSP
-            {name = "nvim_lsp";}
-            {name = "nvim_lsp_signature_help";}
-
-            # Filesystem paths
-            {name = "path";}
-
-            # Buffer CMP
-            {name = "buffer";}
-
-            # Snippets
-            {name = "snippy";}
-            {name = "luasnip";}
-
-            {name = "cmp-dap";}
-          ];
-          mapping = {
-            "<C-Space>" = "cmp.mapping.complete()";
-            "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-            "<C-e>" = "cmp.mapping.close()";
-            "<C-f>" = "cmp.mapping.scroll_docs(4)";
-            "<CR>" = "cmp.mapping.confirm({ select = true })";
-            "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-            "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-          };
-        };
-      };
-
       dap.enable = true;
 
       fidget.enable = true;
@@ -223,6 +185,8 @@
         };
       };
 
+      trouble.enable = true;
+
       telescope = {
         enable = true;
         extensions = {
@@ -265,25 +229,13 @@
       vimPlugins.palette-nvim
       vimPlugins.oxocarbon-nvim
       # vimPlugins.lush-nvim
-      # vimPlugins.zenbones-nvim
+      vimPlugins.zenbones-nvim
       vimPlugins.lazydev-nvim
       vimPlugins.leetcode-nvim
     ];
 
-    extraConfigLuaPost = ''
-      local hour = tonumber(os.date("%H"))
-      if hour >= 6 and hour < 17 then
-        vim.o.background = "dark"
-        vim.o.background = "light"
-      else
-        vim.o.background = "light"
-        vim.o.background = "dark"
-      end
-    '';
-
     extraConfigLua = ''
       require("lazydev").setup()
-      -- vim.cmd([[colo zenbones]])
       require("leetcode").setup()
     '';
   };
