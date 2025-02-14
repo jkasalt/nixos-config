@@ -1,167 +1,27 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
     ./options.nix
     ./keymaps.nix
-    ./plugins
     inputs.nixvim.homeManagerModules.nixvim
   ];
 
   programs.nixvim = {
+    imports = lib.attrsets.foldlAttrs (
+      prev: name: type:
+        prev ++ lib.lists.optional (type == "directory") (./plugins + "/${name}")
+    ) [] (builtins.readDir ./plugins);
+
     enable = true;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
 
     colorschemes.tokyonight.enable = true;
-
-    plugins = {
-      dap.enable = true;
-
-      fidget.enable = true;
-
-      guess-indent.enable = true;
-
-      fugitive.enable = true;
-
-      gitsigns = {
-        enable = true;
-        settings = {
-          current_line_blame = true;
-          current_line_blame_opts = {
-            ignore_whitespace = true;
-          };
-          diff_opts = {
-            algorithm = "histogram";
-            indent_heuristic = true;
-          };
-        };
-      };
-
-      hex.enable = true;
-
-      intellitab.enable = true;
-
-      lsp = {
-        enable = true;
-        inlayHints = true;
-        keymaps = {
-          lspBuf = {
-            K = "hover";
-            ga = "code_action";
-            gD = "references";
-            gd = "definition";
-            gi = "implementation";
-            gr = "rename";
-            gt = "type_definition";
-          };
-        };
-        servers = {
-          # python
-          basedpyright.enable = true;
-          ruff.enable = true;
-          # typst
-          tinymist.enable = true;
-          # lua
-          lua_ls.enable = true;
-          # webdev
-          html.enable = true;
-          biome.enable = true;
-          # java
-          jdtls = {
-            enable = true;
-            extraOptions.init_options.jvm_args = ["-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
-          };
-          # docker
-          dockerls.enable = true;
-          docker_compose_language_service = {
-            enable = true;
-            filetypes = ["yaml"];
-          };
-          # nix
-          nil_ls = {
-            enable = true;
-            settings = {
-              nix.flake.autoArchive = true;
-              formatting.command = null;
-            };
-          };
-          # terraform
-          terraformls.enable = true;
-          tflint.enable = true;
-        };
-      };
-
-      lsp-format.enable = true;
-
-      none-ls = {
-        enable = true;
-        sources = {
-          code_actions = {
-            statix.enable = true;
-          };
-          diagnostics = {
-            actionlint.enable = true;
-            hadolint.enable = true;
-            # sqruff.enable = true;
-            statix.enable = true;
-            tidy.enable = true;
-          };
-          formatting = {
-            alejandra.enable = true;
-            typstyle.enable = true;
-            yamlfmt.enable = true;
-          };
-        };
-      };
-
-      nui.enable = true;
-
-      nvim-autopairs.enable = true;
-
-      nvim-surround.enable = true;
-
-      oil.enable = true;
-
-      otter = {
-        enable = true;
-        settings.handle_leading_whitespace = true;
-      };
-
-      smart-splits = {
-        enable = true;
-        luaConfig.post =
-          # Lua
-          ''
-            -- recommended mappings
-            -- resizing splits
-            -- these keymaps will also accept a range,
-            -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
-            vim.keymap.set('n', '<A-h>', require('smart-splits').resize_left)
-            vim.keymap.set('n', '<A-j>', require('smart-splits').resize_down)
-            vim.keymap.set('n', '<A-k>', require('smart-splits').resize_up)
-            vim.keymap.set('n', '<A-l>', require('smart-splits').resize_right)
-            -- moving between splits
-            vim.keymap.set('n', '<C-h>', require('smart-splits').move_cursor_left)
-            vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down)
-            vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
-            vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
-            vim.keymap.set('n', '<C-->', require('smart-splits').move_cursor_previous)
-            -- swapping buffers between windows
-            vim.keymap.set('n', '<C-H>', require('smart-splits').swap_buf_left)
-            vim.keymap.set('n', '<C-J>', require('smart-splits').swap_buf_down)
-            vim.keymap.set('n', '<C-K>', require('smart-splits').swap_buf_up)
-            vim.keymap.set('n', '<C-L>', require('smart-splits').swap_buf_right)
-          '';
-      };
-
-      snacks = {
-        enable = true;
-        settings.bigfile.enabled = true;
-      };
 
       render-markdown.enable = true;
 
