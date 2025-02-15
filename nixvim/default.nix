@@ -130,6 +130,13 @@
           };
           # nix
           nil_ls.enable = true;
+          # misc
+          snyk_ls = {
+            enable = true;
+            package = pkgs.snyk;
+          };
+          tflint.enable = true;
+          terraformls.enable = true;
         };
       };
 
@@ -146,6 +153,7 @@
             # sqruff.enable = true;
             statix.enable = true;
             tidy.enable = true;
+            trivy.enable = true;
           };
           formatting = {
             alejandra.enable = true;

@@ -28,6 +28,7 @@
 
       ignorecase = true;
       smartcase = true;
+      smartindent = true;
 
       cursorline = true;
       laststatus = 3;

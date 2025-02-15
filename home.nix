@@ -24,7 +24,6 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    taskwarrior3
     vit
     lazygit
     bat
@@ -123,6 +122,12 @@
     opam = {
       enable = true;
       enableZshIntegration = true;
+    };
+    taskwarrior = {
+      enable = true;
+      extraConfig = ''
+        include /usr/share/doc/task/rc/light-256.theme
+      '';
     };
   };
   # Let Home Manager install and manage itself.
