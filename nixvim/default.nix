@@ -16,11 +16,13 @@
     viAlias = true;
     vimAlias = true;
 
+    colorschemes.vscode.enable = true;
+
     plugins = {
       bufferline.enable = true;
 
       blink-cmp = {
-        enable = true;
+        enable = false;
         settings.keymap.preset = "super-tab";
       };
 
@@ -54,6 +56,11 @@
             "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           };
         };
+      };
+
+      coq-nvim = {
+        enable = true;
+        settings.auto_start = true;
       };
 
       dap.enable = true;
@@ -117,26 +124,28 @@
           # webdev
           html.enable = true;
           biome.enable = true;
-          volar.enable = true;
           # java
           jdtls = {
             enable = true;
             extraOptions.init_options.jvm_args = ["-javaagent:${pkgs.lombok}/share/java/lombok.jar"];
           };
-          # docker compose
+          # docker
+          dockerls.enable = true;
           docker_compose_language_service = {
             enable = true;
             filetypes = ["yaml"];
           };
           # nix
-          nil_ls.enable = true;
-          # misc
-          snyk_ls = {
+          nil_ls = {
             enable = true;
-            package = pkgs.snyk;
+            settings = {
+              nix.flake.autoArchive = true;
+              formatting.command = null;
+            };
           };
-          tflint.enable = true;
+          # terraform
           terraformls.enable = true;
+          tflint.enable = true;
         };
       };
 
@@ -150,6 +159,7 @@
           };
           diagnostics = {
             actionlint.enable = true;
+            hadolint.enable = true;
             # sqruff.enable = true;
             statix.enable = true;
             tidy.enable = true;
@@ -157,8 +167,7 @@
           };
           formatting = {
             alejandra.enable = true;
-            biome.enable = true;
-            # sqruff.enable = true;
+            prisma_format.enable = true;
             typstyle.enable = true;
             prettierd.enable = true;
           };
@@ -205,7 +214,10 @@
           '';
       };
 
-      snacks.enable = true;
+      snacks = {
+        enable = true;
+        settings.bigfile.enabled = true;
+      };
 
       render-markdown.enable = true;
 
@@ -273,6 +285,7 @@
       vimPlugins.lush-nvim
       vimPlugins.zenbones-nvim
       vimPlugins.lazydev-nvim
+      vimPlugins.leetcode-nvim
     ];
 
     extraConfigLuaPost = ''
@@ -288,19 +301,8 @@
 
     extraConfigLua = ''
       require("lazydev").setup()
-
       vim.cmd([[colo zenbones]])
-
-      -- Workaround: https://github.com/neovim/neovim/issues/30985#issuecomment-2447329525
-      for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
-          local default_diagnostic_handler = vim.lsp.handlers[method]
-          vim.lsp.handlers[method] = function(err, result, context, config)
-              if err ~= nil and err.code == -32802 then
-                  return
-              end
-              return default_diagnostic_handler(err, result, context, config)
-          end
-      end
+      require("leetcode").setup()
     '';
   };
 

@@ -9,7 +9,7 @@
   pkgs,
   ...
 }: let
-  username = "nixos";
+  username = "brua";
   shellAliases = {
     vcn = "sudo nvim /etc/nixos/configuration.nix";
     nrs = "sudo nixos-rebuild switch";
@@ -18,17 +18,19 @@
 in {
   boot.loader.grub.enable = false;
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  virtualisation.docker.enable = true;
 
   environment.systemPackages = with pkgs; [
-    neovim
+    bash
+    curl
+    direnv
+    gcc
+    gh
     git
     gzip
-    bash
+    neovim
+    openssl
     wget
-    curl
-    gcc
-    direnv
-    gh
     zsh
   ];
 

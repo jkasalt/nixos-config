@@ -4,12 +4,12 @@
     enableZshIntegration = true;
     settings = {
       format = lib.concatStrings [
-        "$username"
-        "$hostname"
-        "$directory"
         "$aws"
         "$azure"
         "$gcloud"
+        "$username"
+        "$hostname"
+        "$directory"
         "$battery"
         "$python"
         "$character"
@@ -22,6 +22,10 @@
         "$git_status"
         "$git_metrics"
       ];
+
+      aws = {
+        format = "[$symbol($profile) \(($region)\) ($duration)]($style)";
+      };
 
       directory = {
         read_only = "󰌾";
