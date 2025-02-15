@@ -1,5 +1,11 @@
 _: {
-  imports = [./lsp.nix ./none-ls.nix];
+  imports = [
+    ./lsp.nix
+    ./none-ls.nix
+    ./rustaceanvim.nix
+    ./treesitter.nix
+    ./typescript-tools.nix
+  ];
   plugins = {
     fidget.enable = true;
     lsp-format.enable = true;
