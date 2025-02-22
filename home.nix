@@ -19,7 +19,7 @@
     stateVersion = "24.05"; # Please read the comment before changing.
   };
 
-  imports = [./tmux.nix ./ssh.nix ./git.nix ./nixvim ./zsh.nix ./openshift.nix];
+  imports = [./tmux.nix ./ssh.nix ./git.nix ./neovim ./zsh.nix ./openshift.nix];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -40,6 +40,7 @@
     openssh
     opentofu
     python3
+    ripgrep
     taskwarrior3
     vit
     xclip
@@ -124,12 +125,6 @@
     opam = {
       enable = true;
       enableZshIntegration = true;
-    };
-    taskwarrior = {
-      enable = true;
-      extraConfig = ''
-        include /usr/share/doc/task/rc/light-256.theme
-      '';
     };
   };
   # Let Home Manager install and manage itself.

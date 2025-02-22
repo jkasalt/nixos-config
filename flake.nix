@@ -10,9 +10,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      # If using a stable channel you can use `url = "github:nix-community/nixvim/nixos-<version>"`
+
+    nvf = {
+      url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -30,7 +30,7 @@
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        modules = [./home.nix];
+        modules = [inputs.nvf.homeManagerModules.default ./home.nix];
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
