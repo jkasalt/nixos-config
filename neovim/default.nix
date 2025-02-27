@@ -48,13 +48,13 @@
           ts.enable = true;
         };
 
-        lazy.plugins = {
+        lazy.plugins = with pkgs.vimPlugins; {
           "guess-indent.nvim" = {
-            package = pkgs.vimPlugins.guess-indent-nvim;
+            package = guess-indent-nvim;
             setupModule = "guess-indent";
           };
           "oil.nvim" = {
-            package = pkgs.vimPlugins.oil-nvim;
+            package = oil-nvim;
             setupModule = "oil";
             setupOpts = {
               skip_confirm_for_simple_edits = true;
