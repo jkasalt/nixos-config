@@ -69,6 +69,12 @@
               }
             ];
           };
+          "telescope-ui-select.nvim" = {
+            package = telescope-ui-select-nvim;
+            after =
+              #lua
+              ''require("telescope").load_extension("ui-select")'';
+          };
           zk-nvim = {
             package = zk-nvim;
             setupModule = "zk";
