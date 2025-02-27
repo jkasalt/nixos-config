@@ -67,6 +67,11 @@
               }
             ];
           };
+          zk-nvim = {
+            package = zk-nvim;
+            setupModule = "zk";
+            ft = "markdown";
+          };
         };
 
         lsp = {
