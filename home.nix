@@ -48,8 +48,10 @@
     nodejs_22
     openssh
     opentofu
+    pandoc
     python3
     ripgrep
+    ripgrep-all
     vit
     xclip
     yarn
