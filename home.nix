@@ -25,8 +25,9 @@
     ./ssh.nix
     ./git.nix
     ./neovim
-    ./zsh.nix
+    ./nu.nix
     ./openshift.nix
+    ./zsh.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your
