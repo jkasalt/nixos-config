@@ -31,8 +31,10 @@
 
           bash.enable = true;
           html.enable = true;
+          java.enable = true;
           markdown.enable = true;
           nix.enable = true;
+          nu.enable = true;
           rust = {
             enable = true;
             lsp.opts = {
