@@ -6,5 +6,9 @@
       source = ./dotfiles/timewarrior;
       recursive = true;
     };
+    ".config/task/hooks/on-modify.timewarrior" = {
+      source = "${pkgs.timewarrior}/share/doc/timew/ext/on-modify.timewarrior";
+      executable = true;
+    };
   };
 }
