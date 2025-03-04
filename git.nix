@@ -1,6 +1,7 @@
-_: {
+{pkgs, ...}: {
   programs.git = {
     enable = true;
+    package = pkgs.gitFull;
     delta.enable = true;
     delta.options.side-by-side = true;
 
@@ -24,6 +25,8 @@ _: {
       push.autoSetupRemote = true;
       init.defaultBranch = "main";
     };
+
+    maintenance.enable = true;
 
     # Thank you: https://github.com/fufexan/dotfiles/blob/main/home/terminal/programs/git.nix
     aliases = let
