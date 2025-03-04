@@ -40,7 +40,10 @@
           enableLSP = true;
           enableTreesitter = true;
 
-          bash.enable = true;
+          bash = {
+            enable = true;
+            extraDiagnostics.enable = false;
+          };
           html.enable = true;
           java.enable = true;
           markdown.enable = true;
