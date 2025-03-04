@@ -99,6 +99,8 @@
         lsp = {
           formatOnSave = true;
           lsplines.enable = true;
+          lspkind.enable = true;
+          nvim-docs-view.enable = true;
           otter-nvim.enable = true;
           trouble.enable = true;
         };
