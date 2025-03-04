@@ -21,13 +21,24 @@
 
         binds.whichKey.enable = true;
 
-        git.enable = true;
+        debugger.nvim-dap = {
+          enable = true;
+          ui.enable = true;
+        };
+
+        git = {
+          enable = true;
+          git-conflict.enable = true;
+        };
+
+        hideSearchHighlight = true;
 
         languages = {
+          enableDAP = true;
+          enableExtraDiagnostics = true;
           enableFormat = true;
           enableLSP = true;
           enableTreesitter = true;
-          enableExtraDiagnostics = true;
 
           bash.enable = true;
           html.enable = true;
