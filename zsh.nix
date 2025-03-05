@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -24,9 +23,6 @@
     initExtra = lib.concatStrings [
       ''
         zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-      ''
-      ''
-        source <(${pkgs.leetcode-cli}/bin/leetcode c zsh)
       ''
     ];
 
