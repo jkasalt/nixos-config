@@ -41,6 +41,7 @@
     exercism
     fd
     gh
+    hledger
     jaq
     jq
     lazygit
