@@ -9,15 +9,7 @@
           style = "night";
         };
 
-        autocomplete.blink-cmp = {
-          enable = true;
-          mappings = {
-            confirm = "<C-y>";
-            next = "<Down>";
-            previous = "<Up>";
-          };
-          setupOpts.keymap.preset = "default";
-        };
+        autocomplete.nvim-cmp.enable = true;
 
         binds.whichKey.enable = true;
 
@@ -44,11 +36,8 @@
             enable = true;
             extraDiagnostics.enable = false;
           };
-          html.enable = true;
-          java.enable = true;
           markdown.enable = true;
           nix.enable = true;
-          nu.enable = true;
           rust = {
             enable = true;
             lsp.opts = {
@@ -57,9 +46,6 @@
               files.excludeDirs = [".direnv"];
             };
           };
-          sql.enable = true;
-          tailwind.enable = true;
-          ts.enable = true;
         };
 
         lazy.plugins = with pkgs.vimPlugins; {
