@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [taskwarrior3 timewarrior];
+  home.packages = with pkgs; [python3 taskwarrior3 timewarrior];
   home.file = {
     ".config/task/taskrc".source = ./dotfiles/taskrc;
     ".config/timewarrior" = {
