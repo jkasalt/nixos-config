@@ -24,6 +24,7 @@
     ./taskwarrior.nix
     ./ssh.nix
     ./git.nix
+    ./klog.nix
     ./neovim
     ./nu.nix
     ./openshift.nix
@@ -44,6 +45,7 @@
     hledger
     jaq
     jq
+    klog-time-tracker
     lazygit
     nix-direnv
     nodejs_22
