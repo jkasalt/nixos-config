@@ -26,6 +26,7 @@
     ./git.nix
     ./klog.nix
     ./neovim
+    ./nixcats
     ./nu.nix
     ./openshift.nix
     ./zsh.nix
