@@ -117,15 +117,6 @@
           trailspace.enable = true;
         };
 
-        notes.neorg = {
-          enable = true;
-          treesitter.enable = true;
-          setupOpts.load = {
-            "core.defaults" = {};
-            "core.concealer" = {};
-          };
-        };
-
         telescope = {
           enable = true;
         };
