@@ -96,10 +96,6 @@
     EDITOR = "nvim";
   };
   programs = {
-    opam = {
-      enable = true;
-      enableZshIntegration = true;
-    };
     zk.enable = true;
     helix.enable = true;
   };
