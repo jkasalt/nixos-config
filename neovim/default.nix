@@ -3,12 +3,6 @@
     enable = true;
     settings = {
       vim = {
-        theme = {
-          enable = true;
-          name = "tokyonight";
-          style = "night";
-        };
-
         autocomplete.nvim-cmp.enable = true;
 
         binds.whichKey.enable = true;
@@ -45,6 +39,18 @@
               check = {command = "clippy";};
               files.excludeDirs = [".direnv"];
             };
+          };
+        };
+
+        extraPlugins = with pkgs.vimPlugins; {
+          vscode-nvim = {
+            package = vscode-nvim;
+            setup =
+              # lua
+              ''
+                require("vscode").setup()
+                vim.cmd.colorscheme("vscode")
+              '';
           };
         };
 
