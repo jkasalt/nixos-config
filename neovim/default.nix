@@ -30,15 +30,20 @@
             enable = true;
             extraDiagnostics.enable = false;
           };
+          haskell.enable = true;
           markdown.enable = true;
           nix.enable = true;
           rust = {
             enable = true;
-            lsp.opts = {
-              cargo = {allFeatures = true;};
-              check = {command = "clippy";};
-              files.excludeDirs = [".direnv"];
-            };
+            lsp.opts =
+              # lua
+              ''
+                ["rust-analyzer"] = {
+                  cargo = {allFeatures = true};
+                  check = {command = "clippy"};
+                  files = {excludeDirs = {".direnv"}};
+                }
+              '';
           };
         };
 
