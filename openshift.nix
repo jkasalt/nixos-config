@@ -1,16 +1,15 @@
 {pkgs, ...}: let
-  inherit (pkgs) openshift;
+  inherit (pkgs) openshift kubernetes-helm kubectl kustomize;
 in {
-  home.packages = [openshift];
+  home.packages = [
+    openshift
+    kubectl
+    kubernetes-helm
+    kustomize
+  ];
 
-  programs.zsh.initExtra =
-    # bash
-    ''
-      autoload -Uz compinit
-      compinit
-      if [ $commands[${openshift}/bin/oc] ]; then
-        source <(${openshift}/bin/oc completion zsh)
-        compdef _oc ${openshift}/bin/oc
-      fi
-    '';
+  programs.zsh.shellAliases = {
+    oclogin = "oc login -u brua --server=https://api.okd.svc.elca.ch:6443";
+    kc = "kubectl";
+  };
 }

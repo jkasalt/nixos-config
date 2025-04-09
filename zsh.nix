@@ -1,30 +1,14 @@
-{
-  lib,
-  config,
-  ...
-}: {
-  imports = [./starship.nix];
-
-  programs.zsh = {
+{config, ...}: let
+  zshConfig = {
     enable = true;
-    enableCompletion = true;
     autosuggestion.enable = true;
     autocd = true;
     syntaxHighlighting.enable = true;
-    antidote = {
-      enable = true;
-      plugins = ["Aloxaf/fzf-tab kind:defer"];
-    };
     history = {
       ignoreDups = true;
       ignoreAllDups = true;
       ignoreSpace = true;
     };
-    initExtra = lib.concatStrings [
-      ''
-        zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-      ''
-    ];
 
     shellAliases = let
       gitAliases = config.programs.git.aliases;
@@ -40,21 +24,30 @@
       }
       // gitShellAliases;
   };
+  enable = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+in {
+  imports = [./starship.nix];
 
   programs = {
-    zoxide = {
-      enable = true;
-      enableZshIntegration = true;
-      options = ["--cmd cd"];
-    };
-    fzf = {
-      enable = true;
-      enableZshIntegration = true;
-    };
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-      enableZshIntegration = true;
-    };
+    zsh = zshConfig;
+
+    zoxide =
+      {
+        options = ["--cmd cd"];
+      }
+      // enable;
+
+    fzf = enable;
+
+    direnv =
+      {
+        nix-direnv.enable = true;
+      }
+      // enable;
+
+    carapace = enable;
   };
 }
