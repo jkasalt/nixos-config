@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   programs.nvf = {
     enable = true;
+    enableManpages = true;
     settings = {
       vim = {
         autocomplete.nvim-cmp.enable = true;
@@ -25,14 +26,12 @@
           enableFormat = true;
           enableLSP = true;
           enableTreesitter = true;
-
-          bash = {
-            enable = true;
-            extraDiagnostics.enable = false;
-          };
+          bash.enable = true;
           haskell.enable = true;
+          helm.enable = true;
           markdown.enable = true;
           nix.enable = true;
+          python.enable = true;
           rust = {
             enable = true;
             lsp.opts =
@@ -45,6 +44,7 @@
                 }
               '';
           };
+          yaml.enable = true;
         };
 
         extraPlugins = with pkgs.vimPlugins; {
@@ -57,28 +57,20 @@
                 vim.cmd.colorscheme("vscode")
               '';
           };
+          vim-klog = {
+            package = pkgs.fetchFromGitHub {
+              owner = "73";
+              repo = "vim-klog";
+              rev = "ca32b78e7e90095552f37197b4f9eb0ae99b3000";
+              hash = "sha256-89zkZWmyF+xQNHJAfmAfA0HVJpKPWt1jMgN8NifoQws=";
+            };
+          };
         };
 
         lazy.plugins = with pkgs.vimPlugins; {
           "guess-indent.nvim" = {
             package = guess-indent-nvim;
             setupModule = "guess-indent";
-          };
-          "oil.nvim" = {
-            package = oil-nvim;
-            setupModule = "oil";
-            setupOpts = {
-              skip_confirm_for_simple_edits = true;
-              watch_for_changes = true;
-            };
-            cmd = "Oil";
-            keys = [
-              {
-                key = "<leader>-";
-                mode = "n";
-                action = ":Oil<CR>";
-              }
-            ];
           };
           "telescope-ui-select.nvim" = {
             package = telescope-ui-select-nvim;
@@ -122,6 +114,22 @@
         };
 
         terminal.toggleterm.enable = true;
+
+        treesitter = {
+          enable = true;
+          autotagHtml = true;
+          context.enable = true;
+          # grammars = builtins.attrValues pkgs.vimPlugins.nvim-treesitter.builtGrammars;
+          grammars = [pkgs.vimPlugins.nvim-treesitter.builtGrammars.xml];
+        };
+
+        utility.oil-nvim = {
+          enable = true;
+          setupOpts = {
+            skip_confirm_for_simple_edits = true;
+            watch_for_changes = true;
+          };
+        };
       };
     };
   };

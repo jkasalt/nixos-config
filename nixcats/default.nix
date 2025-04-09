@@ -55,18 +55,18 @@ in {
             #   # you can even make subcategories based on categories and settings sets!
             (
               builtins.getAttr packageDef.categories.colorscheme {
-                "tokyonight" = tokyonight-nvim;
+                "vscode" = vscode-nvim;
               }
             )
           ];
         };
         optionalPlugins = {
           general = {
-	    treesitter = with pkgs.vimPlugins; [
-	      nvim-treesitter-textobjects
-	      nvim-treesitter.withAllGrammars
-	    ];
-	  };
+            treesitter = with pkgs.vimPlugins; [
+              nvim-treesitter-textobjects
+              nvim-treesitter.withAllGrammars
+            ];
+          };
         };
         # shared libraries to be added to LD_LIBRARY_PATH
         # variable available to nvim runtime
@@ -111,8 +111,8 @@ in {
           # (and other information to pass to lua)
           categories = {
             general = true;
-	    themer = true;
-	    colorscheme = "tokyonight";
+            themer = true;
+            colorscheme = "vscode";
             test = true;
             example = {
               youCan = "add more than just booleans";
