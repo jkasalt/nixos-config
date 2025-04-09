@@ -43,7 +43,6 @@
     just
     klog-time-tracker
     lazygit
-    nh
     nix-direnv
     openssh
     ripgrep
@@ -98,6 +97,10 @@
   programs = {
     zk.enable = true;
     helix.enable = true;
+    nh = {
+      enable = true;
+      clean.enable = true;
+    };
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
