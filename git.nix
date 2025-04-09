@@ -21,7 +21,7 @@
       };
 
       rerere.enabled = true;
-      pull.rebase = false;
+      pull.rebase = true;
       push.autoSetupRemote = true;
       init.defaultBranch = "main";
     };
