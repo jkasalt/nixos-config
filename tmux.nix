@@ -9,6 +9,7 @@
       ''
         set-option -sa terminal-overrides ",xterm*:Tc"
         set-option -g set-clipboard on
+        set-option -g mouse on
 
         bind -n M-H previous-window
         bind -n M-L next-window
@@ -23,8 +24,8 @@
     keyMode = "vi";
     mouse = true;
     plugins = with pkgs.tmuxPlugins; [
-      catppuccin
       vim-tmux-navigator
+      resurrect
       yank
     ];
     prefix = "C-Space";
