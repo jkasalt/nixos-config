@@ -9,4 +9,5 @@ _: {
       };
     };
   };
+  programs.zsh.initExtra = "eval $(ssh-agent)";
 }

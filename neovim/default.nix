@@ -53,7 +53,9 @@
             setup =
               # lua
               ''
-                require("vscode").setup()
+                require("vscode").setup({
+                  italic_comments = true,
+                })
                 vim.cmd.colorscheme("vscode")
               '';
           };
@@ -87,11 +89,17 @@
 
         lsp = {
           formatOnSave = true;
-          lsplines.enable = true;
+          lsplines.enable = false;
           lspkind.enable = true;
           nvim-docs-view.enable = true;
           otter-nvim.enable = true;
           trouble.enable = true;
+        };
+
+        notes.neorg = {
+          enable = true;
+          treesitter.enable = true;
+          setupOpts.load."core.defaults".enable = true;
         };
 
         mini = {
@@ -107,6 +115,10 @@
           surround.enable = true;
           tabline.enable = true;
           trailspace.enable = true;
+        };
+
+        options = {
+          scrolloff = 6;
         };
 
         telescope = {
@@ -130,6 +142,8 @@
             watch_for_changes = true;
           };
         };
+
+        visuals.fidget-nvim.enable = true;
       };
     };
   };

@@ -5,4 +5,5 @@
     klc = "klog tags --today @work"; # like kl "count"
     klt = "klog today --diff --now @work";
   };
+  programs.zsh.initExtra = "source <(klog completion -c zsh)";
 }
