@@ -30,6 +30,7 @@
     ./nu.nix
     ./openshift.nix
     ./zsh.nix
+    ./zellij.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your
