@@ -6,6 +6,8 @@
       vim = {
         autocomplete.nvim-cmp.enable = true;
 
+        autopairs.nvim-autopairs.enable = true;
+
         binds.whichKey.enable = true;
 
         debugger.nvim-dap = {
@@ -87,9 +89,13 @@
           };
         };
 
+        diagnostics = {
+          enable = true;
+          config.virtual_text = true;
+        };
+
         lsp = {
           formatOnSave = true;
-          lsplines.enable = false;
           lspkind.enable = true;
           nvim-docs-view.enable = true;
           otter-nvim.enable = true;
@@ -109,7 +115,6 @@
           extra.enable = true;
           move.enable = true;
           operators.enable = true;
-          pairs.enable = true;
           starter.enable = true;
           statusline.enable = true;
           surround.enable = true;
