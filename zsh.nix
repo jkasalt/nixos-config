@@ -34,6 +34,8 @@ in {
   programs = {
     zsh = zshConfig;
 
+    atuin = enable;
+
     zoxide =
       {
         options = ["--cmd cd"];
