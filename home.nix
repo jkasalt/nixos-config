@@ -2,6 +2,7 @@
   config,
   pkgs,
   username,
+  inputs,
   ...
 }: {
   # Home Manager needs a bit of information about you and the paths it should
@@ -25,8 +26,6 @@
     ./ssh.nix
     ./git.nix
     ./klog.nix
-    ./neovim
-    ./nixcats
     ./nu.nix
     ./openshift.nix
     ./zsh.nix
@@ -36,6 +35,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    inputs.nvim-flake.packages.${pkgs.stdenv.system}.default
     bat
     docker
     fd

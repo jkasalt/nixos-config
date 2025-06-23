@@ -11,12 +11,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nvf = {
-      url = "github:notashelf/nvf";
+    nvim-flake = {
+      url = "github:jkasalt/nvim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nixCats.url = "github:BirdeeHub/nixCats-nvim";
   };
 
   outputs = {
@@ -32,7 +30,7 @@
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        modules = [inputs.nvf.homeManagerModules.default ./home.nix];
+        modules = [./home.nix];
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
