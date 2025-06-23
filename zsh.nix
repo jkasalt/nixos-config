@@ -24,32 +24,27 @@
       }
       // gitShellAliases;
   };
-  enable = {
-    enable = true;
-    enableZshIntegration = true;
-  };
 in {
   imports = [./starship.nix];
+  home.shell.enableShellIntegration = true;
 
   programs = {
     zsh = zshConfig;
 
-    atuin = enable;
+    atuin.enable = true;
 
-    zoxide =
-      {
-        options = ["--cmd cd"];
-      }
-      // enable;
+    zoxide = {
+      enable = true;
+      options = ["--cmd cd"];
+    };
 
-    fzf = enable;
+    fzf.enable = true;
 
-    direnv =
-      {
-        nix-direnv.enable = true;
-      }
-      // enable;
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
 
-    carapace = enable;
+    carapace.enable = true;
   };
 }

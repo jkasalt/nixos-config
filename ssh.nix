@@ -9,5 +9,5 @@ _: {
       };
     };
   };
-  programs.zsh.initExtra = "eval $(ssh-agent)";
+  programs.zsh.initContent = "eval $(ssh-agent)";
 }

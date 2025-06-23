@@ -37,9 +37,11 @@
   home.packages = with pkgs; [
     inputs.nvim-flake.packages.${pkgs.stdenv.system}.default
     bat
+    comma
     docker
     fd
     hledger
+    ihp-new
     jq
     just
     klog-time-tracker
@@ -49,6 +51,7 @@
     ripgrep
     ripgrep-all
     xclip
+    websocat
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
