@@ -4,7 +4,8 @@
   username,
   inputs,
   ...
-}: {
+}:
+{
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home = {
@@ -98,6 +99,11 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
+
+  home.sessionPath = [
+    "/home/brua/.cargo/bin"
+  ];
+
   programs = {
     zk.enable = true;
     helix.enable = true;
