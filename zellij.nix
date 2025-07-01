@@ -1,8 +1,8 @@
 _: {
   programs.zellij = {
     enable = true;
+    attachExistingSession = true;
     enableZshIntegration = true;
+    exitShellOnExit = true;
   };
-
-  home.file.".config/zellij/config.kdl".source = ./dotfiles/zellij/config.kdl;
 }
