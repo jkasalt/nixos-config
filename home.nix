@@ -32,6 +32,7 @@
     ./zsh.nix
     ./zellij.nix
     ./emacs.nix
+    ./jujutsu.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your
@@ -39,6 +40,7 @@
   home.packages = with pkgs; [
     inputs.nvim-flake.packages.${pkgs.stdenv.system}.default
     bat
+    cachix
     comma
     docker
     fd

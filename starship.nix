@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   programs.starship = {
     enable = true;
     settings = {
@@ -27,11 +28,12 @@
       };
 
       directory = {
+        style = "white";
         read_only = "󰌾";
       };
 
       character = {
-        success_symbol = "[❯](green)";
+        success_symbol = "[心:](white)";
         error_symbol = "[❯](red)";
         vimcmd_symbol = "[❮](purple)";
       };
@@ -48,11 +50,19 @@
       ];
 
       git_branch = {
-        format = "[$branch]($style) ";
+        format = "[ $branch]($style) ";
+        style = "purple";
+      };
+
+      git_status = {
         style = "bright-purple";
       };
 
-      git_metrics.disabled = false;
+      git_metrics = {
+        disabled = false;
+        added_style = "green";
+        deleted_style = "red";
+      };
 
       cmd_duration = {
         format = "[$duration]($style) ";
@@ -61,10 +71,9 @@
 
       nix_shell = {
         format = "[$state$symbol]($style)";
-        impure_msg = "!";
-        pure_msg = "";
-        symbol = " ";
-        heuristic = true;
+        impure_msg = " ";
+        pure_msg = "( )";
+        symbol = "";
       };
 
       python = {
