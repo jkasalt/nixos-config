@@ -33,8 +33,8 @@
       };
 
       character = {
-        success_symbol = "[心:](white)";
-        error_symbol = "[❯](red)";
+        success_symbol = "[正](white)";
+        error_symbol = "[不](red)";
         vimcmd_symbol = "[❮](purple)";
       };
 
